@@ -1,15 +1,26 @@
 // ==========================================
-// 1. CONFIGURATION & PLACEHOLDER USER STATE
+// 1. CONFIGURATION & USER STATE
 // ==========================================
 
 const userState = {
-    assoc_year: 3,                          // Numeric 1-9 matching CSV's assoc_year
+    assoc_year: 3,                          // Numeric 1-8 matching CSV's assoc_year
     assoc_title: "Third",                   // Display label for "{Your Class}" header
     firm_size_clean: "Up to 100 attorneys",
     state: 11,
     fin_base: 165000,
     fin_bonus: 22000,
     total_comp: 187000
+};
+
+const YEAR_TITLES = {
+    1: "First",
+    2: "Second",
+    3: "Third",
+    4: "Fourth",
+    5: "Fifth",
+    6: "Sixth",
+    7: "Seventh",
+    8: "Eighth+"
 };
 
 // The 3 stacked metric sections
@@ -34,6 +45,10 @@ const CHART_GEOM = {
     marginBottom: 20  // Room at bottom for the X-axis ticks
 };
 
+// Cached datasets so re-renders after form submission are instant
+let cachedRawData = [];
+let cachedRegionsGeo = null;
+
 function formatK(val) {
     if (val === null || isNaN(val)) return "";
     if (val === 0) return "$0";
@@ -48,7 +63,7 @@ function formatSignedK(val) {
 }
 
 // ==========================================
-// 2. DATA WRANGLING
+// 2. DATA WRANGLING & RENDER ORCHESTRATION
 // ==========================================
 
 async function initDashboard() {
@@ -62,16 +77,27 @@ async function initDashboard() {
             total_comp: d.total_comp !== "" ? +d.total_comp : null,
             firm_size_clean: d.firm_size_clean ? d.firm_size_clean.trim() : "",
             state: +d.state,
-            state_name: d.state_name,
+            state_name: d.state_name ? d.state_name.trim() : "",
             region: d.region ? d.region.trim() : ""
         })),
         d3.json("regions_map.geojson")
     ]);
 
+    cachedRawData = rawData;
+    cachedRegionsGeo = regionsGeo;
+
+    populateStateDropdown(rawData);
+    setupInputOverlayHandlers();
+    renderAllModules();
+}
+
+function renderAllModules() {
+    if (!cachedRawData.length || !cachedRegionsGeo) return;
+
     // Auto-calculate [min, max] scale for each of the 3 dumbbell sections individually
     const domainsByMetric = {};
     METRICS.forEach((metric) => {
-        const validValues = rawData
+        const validValues = cachedRawData
             .map((d) => d[metric.key])
             .filter((v) => v !== null && !isNaN(v));
 
@@ -85,13 +111,138 @@ async function initDashboard() {
         domainsByMetric[metric.key] = [sectionMin, sectionMax];
     });
 
-    buildDashboardGrid(rawData, domainsByMetric);
-    buildRegionalMap(rawData, regionsGeo);
-    buildMultiLineChart(rawData);
+    buildDashboardGrid(cachedRawData, domainsByMetric);
+    buildRegionalMap(cachedRawData, cachedRegionsGeo);
+    buildMultiLineChart(cachedRawData);
 }
 
 // ==========================================
-// 3. GRID & DUMBBELL RENDERING (#act-dot-plots)
+// 3. USER INPUT OVERLAY & VALIDATION
+// ==========================================
+
+function populateStateDropdown(data) {
+    const stateSelect = document.getElementById("act-input-state");
+    if (!stateSelect) return;
+
+    // Collect unique valid (state -> state_name) pairs from dataset
+    const stateMap = new Map();
+    data.forEach((d) => {
+        if (!isNaN(d.state) && d.state > 0 && d.state_name) {
+            stateMap.set(d.state, d.state_name);
+        }
+    });
+
+    const sortedStates = Array.from(stateMap.entries())
+        .sort((a, b) => a[1].localeCompare(b[1]));
+
+    sortedStates.forEach(([code, name]) => {
+        const opt = document.createElement("option");
+        opt.value = String(code);
+        opt.textContent = name;
+        stateSelect.appendChild(opt);
+    });
+}
+
+function parseDollarInput(rawStr) {
+    if (typeof rawStr !== "string") return null;
+    // Allow optional leading $, commas, and surrounding whitespace (e.g. "$225,000" or "225000")
+    const cleaned = rawStr.trim().replace(/^\$/, "").replace(/,/g, "").trim();
+    if (cleaned === "" || !/^\d+(\.\d+)?$/.test(cleaned)) {
+        return null;
+    }
+    const num = Number(cleaned);
+    if (!Number.isFinite(num) || num < 0 || num > 10000000) {
+        return null;
+    }
+    return num;
+}
+
+function setupInputOverlayHandlers() {
+    const overlay = document.getElementById("act-input-overlay");
+    const form = document.getElementById("act-user-form");
+    const resetBtn = document.getElementById("act-reset-button");
+    const errorBox = document.getElementById("act-form-error");
+
+    const yearEl = document.getElementById("act-input-year");
+    const firmEl = document.getElementById("act-input-firm");
+    const stateEl = document.getElementById("act-input-state");
+    const baseEl = document.getElementById("act-input-base");
+    const bonusEl = document.getElementById("act-input-bonus");
+
+    if (!overlay || !form) return;
+
+    // Show overlay when "Update your info" is clicked, pre-filled with current values
+    if (resetBtn) {
+        resetBtn.addEventListener("click", () => {
+            if (userState.assoc_year) yearEl.value = String(Math.min(8, userState.assoc_year));
+            if (userState.firm_size_clean) firmEl.value = userState.firm_size_clean;
+            if (userState.state) stateEl.value = String(userState.state);
+            if (userState.fin_base !== null) baseEl.value = userState.fin_base.toLocaleString("en-US");
+            if (userState.fin_bonus !== null) bonusEl.value = userState.fin_bonus.toLocaleString("en-US");
+
+            [yearEl, firmEl, stateEl, baseEl, bonusEl].forEach((el) => el.classList.remove("is-invalid"));
+            errorBox.textContent = "";
+            overlay.classList.remove("is-hidden");
+        });
+    }
+
+    // Validate and apply user inputs on form submit
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        [yearEl, firmEl, stateEl, baseEl, bonusEl].forEach((el) => el.classList.remove("is-invalid"));
+        errorBox.textContent = "";
+
+        const yearVal = parseInt(yearEl.value, 10);
+        const firmVal = firmEl.value.trim();
+        const stateVal = parseInt(stateEl.value, 10);
+        const baseVal = parseDollarInput(baseEl.value);
+        const bonusVal = parseDollarInput(bonusEl.value);
+
+        const errors = [];
+
+        if (isNaN(yearVal) || yearVal < 1 || yearVal > 8) {
+            yearEl.classList.add("is-invalid");
+            errors.push("select an associate class year");
+        }
+        if (!firmVal) {
+            firmEl.classList.add("is-invalid");
+            errors.push("select a firm size");
+        }
+        if (isNaN(stateVal)) {
+            stateEl.classList.add("is-invalid");
+            errors.push("select a state");
+        }
+        if (baseVal === null) {
+            baseEl.classList.add("is-invalid");
+            errors.push("enter a valid numeric base pay");
+        }
+        if (bonusVal === null) {
+            bonusEl.classList.add("is-invalid");
+            errors.push("enter a valid numeric bonus (enter 0 if none)");
+        }
+
+        if (errors.length > 0) {
+            errorBox.textContent = `Please ${errors.join(", ")}.`;
+            return;
+        }
+
+        // Update global userState
+        userState.assoc_year = yearVal;
+        userState.assoc_title = YEAR_TITLES[yearVal] || `${yearVal}th`;
+        userState.firm_size_clean = firmVal;
+        userState.state = stateVal;
+        userState.fin_base = baseVal;
+        userState.fin_bonus = bonusVal;
+        userState.total_comp = baseVal + bonusVal;
+
+        // Re-render all 3 dashboard modules and reveal them
+        renderAllModules();
+        overlay.classList.add("is-hidden");
+    });
+}
+
+// ==========================================
+// 4. GRID & DUMBBELL RENDERING (#act-dot-plots)
 // ==========================================
 
 function buildDashboardGrid(data, domainsByMetric) {
@@ -168,13 +319,18 @@ function buildDashboardGrid(data, domainsByMetric) {
         drawLabelColumn(labelCol, yScale);
 
         // Summarize min/max for each firm-size tier
+        // Note: When user selects year 8 ("8th Year+"), pool all associates with assoc_year >= 8
         const summarizeSlice = (filterByClass) =>
             FIRM_SIZES.map((sizeObj) => {
-                const slice = data.filter((d) =>
-                    (sizeObj.filterValue === null || d.firm_size_clean === sizeObj.filterValue) &&
-                    (!filterByClass || d.assoc_year === userState.assoc_year) &&
-                    d[metric.key] !== null
-                ).map((d) => d[metric.key]);
+                const slice = data.filter((d) => {
+                    const matchesFirm = sizeObj.filterValue === null || d.firm_size_clean === sizeObj.filterValue;
+                    const matchesYear = !filterByClass || (
+                        userState.assoc_year >= 8
+                            ? d.assoc_year >= 8
+                            : d.assoc_year === userState.assoc_year
+                    );
+                    return matchesFirm && matchesYear && d[metric.key] !== null;
+                }).map((d) => d[metric.key]);
 
                 return {
                     label: sizeObj.label,
@@ -325,7 +481,7 @@ function drawDumbbellColumn({ container, rows, userValue, domain, yScale }) {
 }
 
 // ==========================================
-// 4. REGIONAL CHOROPLETH MAP (#act-map)
+// 5. REGIONAL CHOROPLETH MAP (#act-map)
 // ==========================================
 
 function buildRegionalMap(data, geojson) {
@@ -474,16 +630,16 @@ function buildRegionalMap(data, geojson) {
 }
 
 // ==========================================
-// 5. MULTI-LINE TRAJECTORY CHART (#act-multi-line)
+// 6. MULTI-LINE TRAJECTORY CHART (#act-multi-line)
 // ==========================================
 
 function buildMultiLineChart(data) {
     const root = d3.select("#act-multi-line");
     root.html(""); // Clear existing content
 
-    // 1. Determine user's active region (from userState.region or matched via userState.state)
+    // 1. Determine user's active region matched via userState.state
     const stateMatch = data.find((d) => d.state === userState.state && d.region && d.region !== "None");
-    const activeRegion = userState.region || (stateMatch ? stateMatch.region : null);
+    const activeRegion = stateMatch ? stateMatch.region : null;
 
     // 2. Header matching the rest of the dashboard
     const header = root.append("div")

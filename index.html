@@ -28,21 +28,87 @@
             </div>
         </div>
 
+        <div class="act-modules-stage">
+            <!-- Gray Input Panel: covers only the 3 modules area on load & when "Update your info" is clicked -->
+            <div id="act-input-overlay" class="act-input-overlay">
+                <form id="act-user-form" class="act-input-card" novalidate>
+                    <div class="act-input-header">
+                        <h3 class="act-input-title">Enter Your Information</h3>
+                        <p class="act-input-sub">See how your compensation compares to peers in your class, firm size,
+                            and region.</p>
+                    </div>
 
-        <div class="row act-content-row">
-            <div class="col-md-7 col-sm-12 col-xs-12" id="act-left-column">
-                <div id="act-dot-plots">
+                    <div class="act-form-grid">
+                        <div class="act-form-group">
+                            <label for="act-input-year">Associate Class Year</label>
+                            <select id="act-input-year" required>
+                                <option value="">Select class year...</option>
+                                <option value="1">1st Year</option>
+                                <option value="2">2nd Year</option>
+                                <option value="3">3rd Year</option>
+                                <option value="4">4th Year</option>
+                                <option value="5">5th Year</option>
+                                <option value="6">6th Year</option>
+                                <option value="7">7th Year</option>
+                                <option value="8">8th Year+</option>
+                            </select>
+                        </div>
+
+                        <div class="act-form-group">
+                            <label for="act-input-firm">Firm Size</label>
+                            <select id="act-input-firm" required>
+                                <option value="">Select firm size...</option>
+                                <option value="Up to 100 attorneys">Up to 100 attorneys</option>
+                                <option value="101-600 attorneys">101–600 attorneys</option>
+                                <option value="More than 600 attorneys">More than 600 attorneys</option>
+                            </select>
+                        </div>
+
+                        <div class="act-form-group act-form-full">
+                            <label for="act-input-state">State</label>
+                            <select id="act-input-state" required>
+                                <option value="">Select state...</option>
+                            </select>
+                        </div>
+
+                        <div class="act-form-group">
+                            <label for="act-input-base">Base Pay ($)</label>
+                            <input type="text" id="act-input-base" inputmode="numeric" placeholder="e.g. 225,000"
+                                required>
+                        </div>
+
+                        <div class="act-form-group">
+                            <label for="act-input-bonus">Bonus ($)</label>
+                            <input type="text" id="act-input-bonus" inputmode="numeric" placeholder="e.g. 25,000 (or 0)"
+                                required>
+                        </div>
+                    </div>
+
+                    <div id="act-form-error" class="act-form-error" role="alert"></div>
+
+                    <div class="act-form-actions">
+                        <button type="submit" class="act-submit-btn">Compare My Pay</button>
+                    </div>
+                </form>
+            </div>
+
+
+
+
+            <div class="row act-content-row">
+                <div class="col-md-7 col-sm-12 col-xs-12" id="act-left-column">
+                    <div id="act-dot-plots">
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12 col-xs-12" id="act-right-column">
+                    <div id="act-map"></div>
+                    <div id="act-multi-line"></div>
                 </div>
             </div>
-            <div class="col-md-5 col-sm-12 col-xs-12" id="act-right-column">
-                <div id="act-map"></div>
-                <div id="act-multi-line"></div>
-            </div>
+
+
+
         </div>
-
-
-
-    </div>
 </body>
 
 </html>

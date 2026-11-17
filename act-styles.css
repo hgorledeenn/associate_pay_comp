@@ -457,6 +457,165 @@
 
 
 
+
+/* = = = = = = = = = = = */
+/* User Input Overlay    */
+/* = = = = = = = = = = = */
+
+.act-modules-stage {
+    position: relative;
+    min-height: 430px;
+}
+
+.act-input-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    background-color: #e5e7eb;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.act-input-overlay.is-hidden {
+    display: none;
+}
+
+.act-input-card {
+    background-color: #ffffff;
+    border: 1px solid #d4d6da;
+    border-top: 3px solid #0b2a44;
+    border-radius: 4px;
+    padding: 18px 20px;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: 0 4px 12px rgba(11, 42, 68, 0.08);
+}
+
+.act-input-header {
+    border-bottom: 1.5px solid #0b2a44;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+}
+
+.act-input-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0b2a44;
+    margin: 0 0 3px 0;
+}
+
+.act-input-sub {
+    font-size: 12px;
+    color: #4b5563;
+    margin: 0;
+    line-height: 1.35;
+}
+
+.act-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.act-form-full {
+    grid-column: 1 / -1;
+}
+
+.act-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.act-form-group label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #374151;
+    margin: 0;
+}
+
+.act-form-group input,
+.act-form-group select {
+    width: 100%;
+    height: 34px;
+    padding: 5px 8px;
+    font-size: 13px;
+    font-family: 'LatoWeb', Arial, Helvetica, sans-serif;
+    color: #1f2937;
+    background-color: #ffffff;
+    border: 1px solid #9ca3af;
+    border-radius: 3px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.act-form-group input:focus,
+.act-form-group select:focus {
+    outline: none;
+    border-color: #0b2a44;
+    box-shadow: 0 0 0 2px rgba(11, 42, 68, 0.15);
+}
+
+.act-form-group input.is-invalid,
+.act-form-group select.is-invalid {
+    border-color: #D66853;
+    background-color: #fef2f2;
+}
+
+.act-form-error {
+    margin-top: 10px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #b91c1c;
+    min-height: 16px;
+}
+
+.act-form-actions {
+    margin-top: 8px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.act-submit-btn {
+    background-color: #0b2a44;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'LatoWeb', Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.act-submit-btn:hover {
+    background-color: #163d5e;
+}
+
+/* Ensure dark-mode override doesn't turn the dark-navy submit button text dark */
+html body.dark-mode .act-section-wrap .act-submit-btn,
+html body.tw-dark .act-section-wrap .act-submit-btn,
+html body.dark .act-section-wrap .act-submit-btn,
+#article-body .act-section-wrap .act-submit-btn {
+    color: #ffffff !important;
+}
+
+@media (max-width: 540px) {
+    .act-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .act-input-overlay {
+        padding: 12px;
+    }
+}
+
+
+
 /* = = = = = = */
 /*  DARK MODE  */
 /* = = = = = = */
