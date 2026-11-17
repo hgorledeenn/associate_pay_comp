@@ -1,0 +1,485 @@
+assoc_year,fin_base,fin_bonus,firm_size_clean,state,total_comp,assoc_title,state_name,region
+1,46800,3000,Up to 100 attorneys,28,49800,First,Missouri,Midwest
+3,50000,45000,Up to 100 attorneys,11,95000,Third,Florida,Southeast
+5,50000,5000,Up to 100 attorneys,21,55000,Fifth,Louisiana,Southeast
+1,51000,1000,Up to 100 attorneys,1,52000,First,Alabama,Southeast
+9,55000,20000,Up to 100 attorneys,11,75000,Beyond eighth year,Florida,Southeast
+1,60000,2000,Up to 100 attorneys,20,62000,First,Kentucky,Southeast
+2,60000,100,Up to 100 attorneys,39,60100,Second,Ohio,Midwest
+3,63000,2000,Up to 100 attorneys,43,65000,Third,Puerto Rico,
+1,65000,0,Up to 100 attorneys,39,65000,First,Ohio,Midwest
+4,65000,7500,Up to 100 attorneys,36,72500,Fourth,North Carolina,Southeast
+9,65000,95000,Up to 100 attorneys,7,160000,Beyond eighth year,Colorado,West
+2,68000,5000,Up to 100 attorneys,36,73000,Second,North Carolina,Southeast
+2,68000,0,Up to 100 attorneys,11,68000,Second,Florida,Southeast
+1,70000,1000,Up to 100 attorneys,35,71000,First,New York,Northeast
+2,70000,10000,Up to 100 attorneys,39,80000,Second,Ohio,Midwest
+2,72000,0,Up to 100 attorneys,41,72000,Second,Oregon,West
+8,72000,0,Up to 100 attorneys,39,72000,Eighth,Ohio,Midwest
+3,72500,5000,Up to 100 attorneys,9,77500,Third,Delaware,Southeast
+1,75000,10000,Up to 100 attorneys,56,85000,First,Wisconsin,Midwest
+1,75000,15000,Up to 100 attorneys,40,90000,First,Oklahoma,Southwest
+1,75000,750,Up to 100 attorneys,8,75750,First,Connecticut,Northeast
+2,75000,6000,Up to 100 attorneys,50,81000,Second,Utah,West
+3,75000,8000,Up to 100 attorneys,57,83000,Third,Wyoming,West
+6,75000,0,Up to 100 attorneys,28,75000,Sixth,Missouri,Midwest
+9,75000,75000,Up to 100 attorneys,11,150000,Beyond eighth year,Florida,Southeast
+1,76000,0,Up to 100 attorneys,29,76000,First,Montana,West
+2,76000,4500,Up to 100 attorneys,30,80500,Second,Nebraska,Midwest
+9,76000,1000,Up to 100 attorneys,42,77000,Beyond eighth year,Pennsylvania,Northeast
+2,77000,4000,Up to 100 attorneys,39,81000,Second,Ohio,Midwest
+4,78300,65000,Up to 100 attorneys,25,143300,Fourth,Michigan,Midwest
+2,78400,2000,Up to 100 attorneys,40,80400,Second,Oklahoma,Southwest
+1,80000,2800,Up to 100 attorneys,11,82800,First,Florida,Southeast
+1,80000,0,Up to 100 attorneys,28,80000,First,Missouri,Midwest
+1,80000,5000,Up to 100 attorneys,35,85000,First,New York,Northeast
+1,80000,2000,Up to 100 attorneys,28,82000,First,Missouri,Midwest
+2,80000,5000,Up to 100 attorneys,5,85000,Second,Arkansas,Southeast
+2,80000,6000,Up to 100 attorneys,40,86000,Second,Oklahoma,Southwest
+2,80000,2000,Up to 100 attorneys,17,82000,Second,Indiana,Midwest
+2,80000,3000,Up to 100 attorneys,24,83000,Second,Massachusetts,Northeast
+4,80000,10000,Up to 100 attorneys,52,90000,Fourth,Virginia,Southeast
+5,80000,10000,Up to 100 attorneys,46,90000,Fifth,South Dakota,Midwest
+6,80000,92000,Up to 100 attorneys,37,172000,Sixth,North Dakota,Midwest
+9,80000,50000,Up to 100 attorneys,42,130000,Beyond eighth year,Pennsylvania,Northeast
+3,82000,250,Up to 100 attorneys,29,82250,Third,Montana,West
+1,82500,5000,Up to 100 attorneys,28,87500,First,Missouri,Midwest
+3,82500,0,Up to 100 attorneys,17,82500,Third,Indiana,Midwest
+1,84000,12000,Up to 100 attorneys,31,96000,First,Nevada,West
+1,85000,1000,Up to 100 attorneys,14,86000,First,Hawaii,West
+1,85000,3000,Up to 100 attorneys,35,88000,First,New York,Northeast
+1,85000,17000,More than 600 attorneys,11,102000,First,Florida,Southeast
+2,85000,0,Up to 100 attorneys,6,85000,Second,California,West
+4,85000,20000,Up to 100 attorneys,28,105000,Fourth,Missouri,Midwest
+2,86000,0,Up to 100 attorneys,36,86000,Second,North Carolina,Southeast
+3,86000,5000,Up to 100 attorneys,36,91000,Third,North Carolina,Southeast
+3,87000,10000,Up to 100 attorneys,5,97000,Third,Arkansas,Southeast
+2,88000,3000,Up to 100 attorneys,42,91000,Second,Pennsylvania,Northeast
+9,89000,0,Up to 100 attorneys,33,89000,Beyond eighth year,New Jersey,Northeast
+3,89309,0,Up to 100 attorneys,54,89309,Third,Washington,West
+1,90000,5000,Up to 100 attorneys,11,95000,First,Florida,Southeast
+1,90000,1500,Up to 100 attorneys,12,91500,First,Georgia,Southeast
+1,90000,10000,Up to 100 attorneys,16,100000,First,Illinois,Midwest
+2,90000,2000,Up to 100 attorneys,7,92000,Second,Colorado,West
+2,90000,8000,Up to 100 attorneys,11,98000,Second,Florida,Southeast
+2,90000,3000,Up to 100 attorneys,35,93000,Second,New York,Northeast
+2,90000,0,Up to 100 attorneys,35,90000,Second,New York,Northeast
+2,90000,30000,Up to 100 attorneys,18,120000,Second,Iowa,Midwest
+2,90000,5000,Up to 100 attorneys,23,95000,Second,Maryland,Southeast
+3,90000,10000,Up to 100 attorneys,20,100000,Third,Kentucky,Southeast
+3,90000,12000,Up to 100 attorneys,46,102000,Third,South Dakota,Midwest
+6,90000,300000,Up to 100 attorneys,35,390000,Sixth,New York,Northeast
+9,90000,0,Up to 100 attorneys,35,90000,Beyond eighth year,New York,Northeast
+4,91000,3000,Up to 100 attorneys,27,94000,Fourth,Mississippi,Southeast
+1,92500,0,Up to 100 attorneys,54,92500,First,Washington,West
+1,92500,0,Up to 100 attorneys,48,92500,First,Texas,Southwest
+6,92501,13000,Up to 100 attorneys,19,105501,Sixth,Kansas,Midwest
+4,93500,20000,Up to 100 attorneys,7,113500,Fourth,Colorado,West
+3,94000,2500,Up to 100 attorneys,25,96500,Third,Michigan,Midwest
+3,94000,0,Up to 100 attorneys,35,94000,Third,New York,Northeast
+1,95000,6000,Up to 100 attorneys,11,101000,First,Florida,Southeast
+1,95000,1000,Up to 100 attorneys,41,96000,First,Oregon,West
+1,95000,1000,Up to 100 attorneys,12,96000,First,Georgia,Southeast
+1,95000,1500,Up to 100 attorneys,12,96500,First,Georgia,Southeast
+2,95000,6000,Up to 100 attorneys,28,101000,Second,Missouri,Midwest
+9,95000,0,Up to 100 attorneys,12,95000,Beyond eighth year,Georgia,Southeast
+9,95000,10000,Up to 100 attorneys,40,105000,Beyond eighth year,Oklahoma,Southwest
+6,95550,8000,Up to 100 attorneys,42,103550,Sixth,Pennsylvania,Northeast
+9,99000,0,Up to 100 attorneys,33,99000,Beyond eighth year,New Jersey,Northeast
+1,100000,5000,Up to 100 attorneys,42,105000,First,Pennsylvania,Northeast
+1,100000,100000,Up to 100 attorneys,5,200000,First,Arkansas,Southeast
+1,100000,6000,Up to 100 attorneys,48,106000,First,Texas,Southwest
+1,100000,750,Up to 100 attorneys,16,100750,First,Illinois,Midwest
+1,100000,0,Up to 100 attorneys,25,100000,First,Michigan,Midwest
+2,100000,2000,101-600 attorneys,41,102000,Second,Oregon,West
+2,100000,0,Up to 100 attorneys,35,100000,Second,New York,Northeast
+3,100000,80000,Up to 100 attorneys,30,180000,Third,Nebraska,Midwest
+4,100000,12000,101-600 attorneys,36,112000,Fourth,North Carolina,Southeast
+4,100000,37000,Up to 100 attorneys,25,137000,Fourth,Michigan,Midwest
+4,100000,1500,Up to 100 attorneys,35,101500,Fourth,New York,Northeast
+5,100000,3000,Up to 100 attorneys,31,103000,Fifth,Nevada,West
+5,100000,5000,Up to 100 attorneys,26,105000,Fifth,Minnesota,Midwest
+6,100000,40000,Up to 100 attorneys,27,140000,Sixth,Mississippi,Southeast
+6,100000,10000,Up to 100 attorneys,22,110000,Sixth,Maine,Northeast
+9,100000,0,Up to 100 attorneys,12,100000,Beyond eighth year,Georgia,Southeast
+9,100000,17500,Up to 100 attorneys,12,117500,Beyond eighth year,Georgia,Southeast
+2,102000,0,Up to 100 attorneys,33,102000,Second,New Jersey,Northeast
+9,103000,0,Up to 100 attorneys,18,103000,Beyond eighth year,Iowa,Midwest
+1,105000,2500,Up to 100 attorneys,54,107500,First,Washington,West
+1,105000,10000,Up to 100 attorneys,11,115000,First,Florida,Southeast
+8,105000,5000,Up to 100 attorneys,16,110000,Eighth,Illinois,Midwest
+2,106000,7200,Up to 100 attorneys,48,113200,Second,Texas,Southwest
+9,106000,210000,Up to 100 attorneys,48,316000,Beyond eighth year,Texas,Southwest
+8,107000,30000,Up to 100 attorneys,11,137000,Eighth,Florida,Southeast
+4,109999,10000,Up to 100 attorneys,33,119999,Fourth,New Jersey,Northeast
+1,110000,0,101-600 attorneys,16,110000,First,Illinois,Midwest
+1,110000,10000,Up to 100 attorneys,35,120000,First,New York,Northeast
+1,110000,2500,Up to 100 attorneys,48,112500,First,Texas,Southwest
+1,110000,15000,Up to 100 attorneys,6,125000,First,California,West
+1,110000,30000,Up to 100 attorneys,16,140000,First,Illinois,Midwest
+1,110000,2000,Up to 100 attorneys,44,112000,First,Rhode Island,Northeast
+2,110000,0,Up to 100 attorneys,11,110000,Second,Florida,Southeast
+3,110000,0,Up to 100 attorneys,42,110000,Third,Pennsylvania,Northeast
+4,110000,31000,101-600 attorneys,16,141000,Fourth,Illinois,Midwest
+5,110000,50000,Up to 100 attorneys,48,160000,Fifth,Texas,Southwest
+5,110000,120000,Up to 100 attorneys,23,230000,Fifth,Maryland,Southeast
+6,110000,15000,Up to 100 attorneys,42,125000,Sixth,Pennsylvania,Northeast
+6,110000,8000,Up to 100 attorneys,52,118000,Sixth,Virginia,Southeast
+6,110000,1000,Up to 100 attorneys,25,111000,Sixth,Michigan,Midwest
+8,110000,25000,Up to 100 attorneys,25,135000,Eighth,Michigan,Midwest
+1,112000,12000,Up to 100 attorneys,14,124000,First,Hawaii,West
+5,112500,0,101-600 attorneys,35,112500,Fifth,New York,Northeast
+1,113000,900,Up to 100 attorneys,48,113900,First,Texas,Southwest
+2,113000,25000,Up to 100 attorneys,17,138000,Second,Indiana,Midwest
+2,113000,0,Up to 100 attorneys,11,113000,Second,Florida,Southeast
+3,113000,0,Up to 100 attorneys,52,113000,Third,Virginia,Southeast
+3,113000,7149,Up to 100 attorneys,12,120149,Third,Georgia,Southeast
+2,113500,0,Up to 100 attorneys,52,113500,Second,Virginia,Southeast
+4,114000,3000,Up to 100 attorneys,42,117000,Fourth,Pennsylvania,Northeast
+1,115000,5000,Up to 100 attorneys,6,120000,First,California,West
+1,115000,0,101-600 attorneys,25,115000,First,Michigan,Midwest
+1,115000,5000,Up to 100 attorneys,35,120000,First,New York,Northeast
+1,115000,10000,Up to 100 attorneys,48,125000,First,Texas,Southwest
+1,115000,0,Up to 100 attorneys,47,115000,First,Tennessee,Southeast
+1,115000,500,Up to 100 attorneys,45,115500,First,South Carolina,Southeast
+5,115000,15000,Up to 100 attorneys,24,130000,Fifth,Massachusetts,Northeast
+6,115000,5000,Up to 100 attorneys,41,120000,Sixth,Oregon,West
+6,115000,0,Up to 100 attorneys,7,115000,Sixth,Colorado,West
+7,115000,9733,Up to 100 attorneys,52,124733,Seventh,Virginia,Southeast
+7,115000,8000,Up to 100 attorneys,35,123000,Seventh,New York,Northeast
+9,115000,30000,Up to 100 attorneys,35,145000,Beyond eighth year,New York,Northeast
+9,115500,13000,Up to 100 attorneys,42,128500,Beyond eighth year,Pennsylvania,Northeast
+4,116000,1200,Up to 100 attorneys,17,117200,Fourth,Indiana,Midwest
+1,117000,250,Up to 100 attorneys,35,117250,First,New York,Northeast
+2,117500,5500,Up to 100 attorneys,50,123000,Second,Utah,West
+5,117500,0,Up to 100 attorneys,21,117500,Fifth,Louisiana,Southeast
+1,120000,0,Up to 100 attorneys,55,120000,First,West Virginia,Southeast
+1,120000,5000,Up to 100 attorneys,16,125000,First,Illinois,Midwest
+1,120000,3000,Up to 100 attorneys,30,123000,First,Nebraska,Midwest
+1,120000,0,Up to 100 attorneys,41,120000,First,Oregon,West
+1,120000,7000,101-600 attorneys,40,127000,First,Oklahoma,Southwest
+1,120000,5000,Up to 100 attorneys,35,125000,First,New York,Northeast
+2,120000,60000,Up to 100 attorneys,31,180000,Second,Nevada,West
+2,120000,3000,Up to 100 attorneys,7,123000,Second,Colorado,West
+2,120000,0,101-600 attorneys,7,120000,Second,Colorado,West
+3,120000,11000,Up to 100 attorneys,7,131000,Third,Colorado,West
+3,120000,0,More than 600 attorneys,11,120000,Third,Florida,Southeast
+3,120000,7500,Up to 100 attorneys,40,127500,Third,Oklahoma,Southwest
+3,120000,10000,Up to 100 attorneys,5,130000,Third,Arkansas,Southeast
+4,120000,5000,Up to 100 attorneys,42,125000,Fourth,Pennsylvania,Northeast
+5,120000,25000,Up to 100 attorneys,16,145000,Fifth,Illinois,Midwest
+6,120000,130000,Up to 100 attorneys,39,250000,Sixth,Ohio,Midwest
+6,120000,5000,Up to 100 attorneys,5,125000,Sixth,Arkansas,Southeast
+7,120000,10000,Up to 100 attorneys,26,130000,Seventh,Minnesota,Midwest
+7,120000,24000,Up to 100 attorneys,41,144000,Seventh,Oregon,West
+8,120000,10,Up to 100 attorneys,35,120010,Eighth,New York,Northeast
+9,120000,20000,Up to 100 attorneys,35,140000,Beyond eighth year,New York,Northeast
+9,120000,20000,Up to 100 attorneys,26,140000,Beyond eighth year,Minnesota,Midwest
+3,121000,3000,Up to 100 attorneys,54,124000,Third,Washington,West
+4,121000,2100,Up to 100 attorneys,6,123100,Fourth,California,West
+4,121000,20000,Up to 100 attorneys,24,141000,Fourth,Massachusetts,Northeast
+7,121000,12000,Up to 100 attorneys,47,133000,Seventh,Tennessee,Southeast
+2,122000,1000,Up to 100 attorneys,54,123000,Second,Washington,West
+8,122500,1000,Up to 100 attorneys,25,123500,Eighth,Michigan,Midwest
+3,123000,15000,Up to 100 attorneys,16,138000,Third,Illinois,Midwest
+9,123000,1000,Up to 100 attorneys,33,124000,Beyond eighth year,New Jersey,Northeast
+1,125000,20000,Up to 100 attorneys,23,145000,First,Maryland,Southeast
+1,125000,0,101-600 attorneys,41,125000,First,Oregon,West
+1,125000,20000,Up to 100 attorneys,23,145000,First,Maryland,Southeast
+2,125000,64285,Up to 100 attorneys,42,189285,Second,Pennsylvania,Northeast
+2,125000,10000,Up to 100 attorneys,6,135000,Second,California,West
+4,125000,2500,Up to 100 attorneys,54,127500,Fourth,Washington,West
+4,125000,0,101-600 attorneys,48,125000,Fourth,Texas,Southwest
+4,125000,10000,Up to 100 attorneys,39,135000,Fourth,Ohio,Midwest
+5,125000,0,Up to 100 attorneys,4,125000,Fifth,Arizona,Southwest
+5,125000,12000,Up to 100 attorneys,11,137000,Fifth,Florida,Southeast
+9,125000,10000,Up to 100 attorneys,24,135000,Beyond eighth year,Massachusetts,Northeast
+9,125000,10000,Up to 100 attorneys,6,135000,Beyond eighth year,California,West
+1,130000,0,Up to 100 attorneys,6,130000,First,California,West
+1,130000,2500,Up to 100 attorneys,6,132500,First,California,West
+1,130000,10000,Up to 100 attorneys,54,140000,First,Washington,West
+1,130000,12000,Up to 100 attorneys,48,142000,First,Texas,Southwest
+3,130000,40000,101-600 attorneys,54,170000,Third,Washington,West
+3,130000,10000,Up to 100 attorneys,24,140000,Third,Massachusetts,Northeast
+4,130000,15000,Up to 100 attorneys,36,145000,Fourth,North Carolina,Southeast
+4,130000,5000,Up to 100 attorneys,33,135000,Fourth,New Jersey,Northeast
+6,130000,25000,Up to 100 attorneys,32,155000,Sixth,New Hampshire,Northeast
+8,130000,5000,Up to 100 attorneys,48,135000,Eighth,Texas,Southwest
+2,131250,0,Up to 100 attorneys,6,131250,Second,California,West
+2,133000,7000,Up to 100 attorneys,11,140000,Second,Florida,Southeast
+2,134000,8000,More than 600 attorneys,45,142000,Second,South Carolina,Southeast
+2,135000,10000,Up to 100 attorneys,48,145000,Second,Texas,Southwest
+3,135000,30000,Up to 100 attorneys,35,165000,Third,New York,Northeast
+3,135000,5000,Up to 100 attorneys,11,140000,Third,Florida,Southeast
+3,135000,5000,More than 600 attorneys,47,140000,Third,Tennessee,Southeast
+9,135000,5000,Up to 100 attorneys,47,140000,Beyond eighth year,Tennessee,Southeast
+7,136000,0,Up to 100 attorneys,,136000,Seventh,,
+4,137500,10000,Up to 100 attorneys,11,147500,Fourth,Florida,Southeast
+6,138000,20000,Up to 100 attorneys,42,158000,Sixth,Pennsylvania,Northeast
+4,139000,30000,More than 600 attorneys,11,169000,Fourth,Florida,Southeast
+1,140000,0,101-600 attorneys,35,140000,First,New York,Northeast
+3,140000,15000,Up to 100 attorneys,11,155000,Third,Florida,Southeast
+3,140000,10000,Up to 100 attorneys,33,150000,Third,New Jersey,Northeast
+3,140000,0,Up to 100 attorneys,6,140000,Third,California,West
+4,140000,15000,Up to 100 attorneys,33,155000,Fourth,New Jersey,Northeast
+5,140000,40000,Up to 100 attorneys,6,180000,Fifth,California,West
+5,140000,25000,Up to 100 attorneys,6,165000,Fifth,California,West
+6,140000,160000,Up to 100 attorneys,47,300000,Sixth,Tennessee,Southeast
+7,140000,5000,Up to 100 attorneys,19,145000,Seventh,Kansas,Midwest
+4,140500,15000,Up to 100 attorneys,52,155500,Fourth,Virginia,Southeast
+2,141000,1500,Up to 100 attorneys,52,142500,Second,Virginia,Southeast
+4,142000,119000,Up to 100 attorneys,54,261000,Fourth,Washington,West
+1,145000,5000,Up to 100 attorneys,6,150000,First,California,West
+2,145000,0,Up to 100 attorneys,6,145000,Second,California,West
+3,145000,0,Up to 100 attorneys,6,145000,Third,California,West
+4,145000,0,Up to 100 attorneys,45,145000,Fourth,South Carolina,Southeast
+5,145000,0,Up to 100 attorneys,28,145000,Fifth,Missouri,Midwest
+6,145000,30000,Up to 100 attorneys,28,175000,Sixth,Missouri,Midwest
+4,147000,30000,Up to 100 attorneys,25,177000,Fourth,Michigan,Midwest
+3,148500,25000,101-600 attorneys,16,173500,Third,Illinois,Midwest
+1,150000,50000,101-600 attorneys,25,200000,First,Michigan,Midwest
+1,150000,120000,Up to 100 attorneys,16,270000,First,Illinois,Midwest
+1,150000,0,More than 600 attorneys,35,150000,First,New York,Northeast
+1,150000,500,101-600 attorneys,24,150500,First,Massachusetts,Northeast
+2,150000,10000,Up to 100 attorneys,16,160000,Second,Illinois,Midwest
+2,150000,30000,More than 600 attorneys,6,180000,Second,California,West
+3,150000,70000,Up to 100 attorneys,48,220000,Third,Texas,Southwest
+3,150000,7500,Up to 100 attorneys,23,157500,Third,Maryland,Southeast
+3,150000,20000,Up to 100 attorneys,48,170000,Third,Texas,Southwest
+4,150000,0,Up to 100 attorneys,10,150000,Fourth,District of Columbia,Southeast
+4,150000,10000,101-600 attorneys,33,160000,Fourth,New Jersey,Northeast
+5,150000,2000,Up to 100 attorneys,42,152000,Fifth,Pennsylvania,Northeast
+5,150000,0,Up to 100 attorneys,52,150000,Fifth,Virginia,Southeast
+6,150000,25000,Up to 100 attorneys,17,175000,Sixth,Indiana,Midwest
+7,150000,250000,Up to 100 attorneys,31,400000,Seventh,Nevada,West
+7,150000,35000,Up to 100 attorneys,48,185000,Seventh,Texas,Southwest
+7,150000,10000,Up to 100 attorneys,11,160000,Seventh,Florida,Southeast
+8,150000,1000,Up to 100 attorneys,6,151000,Eighth,California,West
+9,150000,2500,Up to 100 attorneys,35,152500,Beyond eighth year,New York,Northeast
+2,151000,0,Up to 100 attorneys,10,151000,Second,District of Columbia,Southeast
+3,151000,40000,Up to 100 attorneys,26,191000,Third,Minnesota,Midwest
+9,151000,0,Up to 100 attorneys,54,151000,Beyond eighth year,Washington,West
+3,153000,15000,Up to 100 attorneys,16,168000,Third,Illinois,Midwest
+5,153000,1000,Up to 100 attorneys,42,154000,Fifth,Pennsylvania,Northeast
+2,155000,5000,Up to 100 attorneys,48,160000,Second,Texas,Southwest
+3,155000,5000,Up to 100 attorneys,4,160000,Third,Arizona,Southwest
+4,155000,25000,101-600 attorneys,21,180000,Fourth,Louisiana,Southeast
+6,155000,6000,Up to 100 attorneys,6,161000,Sixth,California,West
+9,155000,3000,Up to 100 attorneys,6,158000,Beyond eighth year,California,West
+2,157000,7500,Up to 100 attorneys,41,164500,Second,Oregon,West
+3,158000,0,Up to 100 attorneys,16,158000,Third,Illinois,Midwest
+1,160000,9000,101-600 attorneys,35,169000,First,New York,Northeast
+2,160000,10000,Up to 100 attorneys,9,170000,Second,Delaware,Southeast
+2,160000,0,101-600 attorneys,16,160000,Second,Illinois,Midwest
+3,160000,0,Up to 100 attorneys,28,160000,Third,Missouri,Midwest
+3,160000,50000,Up to 100 attorneys,11,210000,Third,Florida,Southeast
+5,160000,25000,Up to 100 attorneys,7,185000,Fifth,Colorado,West
+6,160000,10000,Up to 100 attorneys,12,170000,Sixth,Georgia,Southeast
+7,160000,10000,More than 600 attorneys,8,170000,Seventh,Connecticut,Northeast
+9,160000,0,101-600 attorneys,28,160000,Beyond eighth year,Missouri,Midwest
+1,161000,0,Up to 100 attorneys,,161000,First,,
+3,162500,5000,Up to 100 attorneys,6,167500,Third,California,West
+3,162500,20000,Up to 100 attorneys,6,182500,Third,California,West
+9,164000,40000,Up to 100 attorneys,54,204000,Beyond eighth year,Washington,West
+3,165000,30000,Up to 100 attorneys,4,195000,Third,Arizona,Southwest
+3,165000,10000,Up to 100 attorneys,35,175000,Third,New York,Northeast
+3,165000,13200,Up to 100 attorneys,33,178200,Third,New Jersey,Northeast
+4,165000,55000,Up to 100 attorneys,6,220000,Fourth,California,West
+6,165000,10000,Up to 100 attorneys,11,175000,Sixth,Florida,Southeast
+6,165000,25000,More than 600 attorneys,31,190000,Sixth,Nevada,West
+6,165000,7500,Up to 100 attorneys,33,172500,Sixth,New Jersey,Northeast
+9,165000,0,Up to 100 attorneys,11,165000,Beyond eighth year,Florida,Southeast
+9,165000,20000,Up to 100 attorneys,6,185000,Beyond eighth year,California,West
+9,167511,50000,Up to 100 attorneys,16,217511,Beyond eighth year,Illinois,Midwest
+1,170000,15000,Up to 100 attorneys,12,185000,First,Georgia,Southeast
+1,170000,0,Up to 100 attorneys,10,170000,First,District of Columbia,Southeast
+1,170000,0,More than 600 attorneys,39,170000,First,Ohio,Midwest
+2,170000,3000,Up to 100 attorneys,48,173000,Second,Texas,Southwest
+3,170000,10000,Up to 100 attorneys,35,180000,Third,New York,Northeast
+4,170000,75000,Up to 100 attorneys,35,245000,Fourth,New York,Northeast
+5,170000,10000,Up to 100 attorneys,23,180000,Fifth,Maryland,Southeast
+5,170000,34000,Up to 100 attorneys,21,204000,Fifth,Louisiana,Southeast
+9,173500,7000,Up to 100 attorneys,16,180500,Beyond eighth year,Illinois,Midwest
+1,175000,30000,More than 600 attorneys,17,205000,First,Indiana,Midwest
+3,175000,20000,101-600 attorneys,16,195000,Third,Illinois,Midwest
+4,175000,25000,Up to 100 attorneys,7,200000,Fourth,Colorado,West
+4,175000,10000,101-600 attorneys,39,185000,Fourth,Ohio,Midwest
+5,175000,0,Up to 100 attorneys,6,175000,Fifth,California,West
+5,175000,0,101-600 attorneys,6,175000,Fifth,California,West
+6,175000,40000,Up to 100 attorneys,6,215000,Sixth,California,West
+6,175000,10000,101-600 attorneys,11,185000,Sixth,Florida,Southeast
+6,175000,60000,Up to 100 attorneys,26,235000,Sixth,Minnesota,Midwest
+8,175000,0,Up to 100 attorneys,48,175000,Eighth,Texas,Southwest
+9,175000,20000,Up to 100 attorneys,35,195000,Beyond eighth year,New York,Northeast
+9,175000,25000,Up to 100 attorneys,35,200000,Beyond eighth year,New York,Northeast
+9,178500,7000,101-600 attorneys,35,185500,Beyond eighth year,New York,Northeast
+5,179000,38000,101-600 attorneys,35,217000,Fifth,New York,Northeast
+1,180000,20000,101-600 attorneys,48,200000,First,Texas,Southwest
+2,180000,12500,Up to 100 attorneys,,192500,Second,,
+2,180000,2500,More than 600 attorneys,1,182500,Second,Alabama,Southeast
+3,180000,20000,101-600 attorneys,33,200000,Third,New Jersey,Northeast
+4,180000,5000,101-600 attorneys,25,185000,Fourth,Michigan,Midwest
+6,180000,61000,Up to 100 attorneys,26,241000,Sixth,Minnesota,Midwest
+7,180000,60000,Up to 100 attorneys,11,240000,Seventh,Florida,Southeast
+8,180000,1000,Up to 100 attorneys,6,181000,Eighth,California,West
+8,180000,5000,Up to 100 attorneys,35,185000,Eighth,New York,Northeast
+8,180000,10000,Up to 100 attorneys,6,190000,Eighth,California,West
+9,180000,0,Up to 100 attorneys,6,180000,Beyond eighth year,California,West
+1,181000,19000,101-600 attorneys,36,200000,First,North Carolina,Southeast
+9,182000,85000,Up to 100 attorneys,11,267000,Beyond eighth year,Florida,Southeast
+9,183000,56000,Up to 100 attorneys,6,239000,Beyond eighth year,California,West
+3,185000,0,More than 600 attorneys,47,185000,Third,Tennessee,Southeast
+6,185000,40000,101-600 attorneys,48,225000,Sixth,Texas,Southwest
+7,187500,30000,More than 600 attorneys,42,217500,Seventh,Pennsylvania,Northeast
+1,190000,5000,Up to 100 attorneys,6,195000,First,California,West
+1,190000,0,101-600 attorneys,16,190000,First,Illinois,Midwest
+2,190000,0,101-600 attorneys,15,190000,Second,Idaho,West
+3,190000,62000,More than 600 attorneys,28,252000,Third,Missouri,Midwest
+3,190000,20000,More than 600 attorneys,7,210000,Third,Colorado,West
+4,190000,5000,Up to 100 attorneys,6,195000,Fourth,California,West
+5,190000,10000,Up to 100 attorneys,48,200000,Fifth,Texas,Southwest
+5,190000,0,Up to 100 attorneys,6,190000,Fifth,California,West
+9,191500,7500,Up to 100 attorneys,35,199000,Beyond eighth year,New York,Northeast
+7,192500,0,Up to 100 attorneys,35,192500,Seventh,New York,Northeast
+2,195000,20000,101-600 attorneys,24,215000,Second,Massachusetts,Northeast
+3,195000,25000,Up to 100 attorneys,6,220000,Third,California,West
+5,195000,25000,More than 600 attorneys,11,220000,Fifth,Florida,Southeast
+7,195000,15000,101-600 attorneys,39,210000,Seventh,Ohio,Midwest
+9,195000,0,Up to 100 attorneys,33,195000,Beyond eighth year,New Jersey,Northeast
+6,196000,29596,Up to 100 attorneys,4,225596,Sixth,Arizona,Southwest
+9,197500,50000,More than 600 attorneys,31,247500,Beyond eighth year,Nevada,West
+2,198000,5000,More than 600 attorneys,28,203000,Second,Missouri,Midwest
+1,200000,15000,101-600 attorneys,28,215000,First,Missouri,Midwest
+1,200000,6000,101-600 attorneys,54,206000,First,Washington,West
+1,200000,0,More than 600 attorneys,7,200000,First,Colorado,West
+2,200000,50000,Up to 100 attorneys,16,250000,Second,Illinois,Midwest
+6,200000,15000,Up to 100 attorneys,7,215000,Sixth,Colorado,West
+7,200000,0,Up to 100 attorneys,35,200000,Seventh,New York,Northeast
+7,200000,28000,Up to 100 attorneys,35,228000,Seventh,New York,Northeast
+7,200000,0,Up to 100 attorneys,6,200000,Seventh,California,West
+8,200000,35000,Up to 100 attorneys,6,235000,Eighth,California,West
+9,200000,10000,Up to 100 attorneys,48,210000,Beyond eighth year,Texas,Southwest
+2,205000,25000,101-600 attorneys,10,230000,Second,District of Columbia,Southeast
+9,205000,25000,Up to 100 attorneys,35,230000,Beyond eighth year,New York,Northeast
+9,206250,31000,Up to 100 attorneys,6,237250,Beyond eighth year,California,West
+7,210000,50000,Up to 100 attorneys,51,260000,Seventh,Vermont,Northeast
+9,210000,50000,Up to 100 attorneys,48,260000,Beyond eighth year,Texas,Southwest
+9,210000,2500,Up to 100 attorneys,42,212500,Beyond eighth year,Pennsylvania,Northeast
+1,212000,20000,Up to 100 attorneys,10,232000,First,District of Columbia,Southeast
+2,215000,0,101-600 attorneys,35,215000,Second,New York,Northeast
+4,215000,17000,101-600 attorneys,6,232000,Fourth,California,West
+6,215000,80000,Up to 100 attorneys,42,295000,Sixth,Pennsylvania,Northeast
+7,215000,17500,Up to 100 attorneys,54,232500,Seventh,Washington,West
+9,215000,0,Up to 100 attorneys,16,215000,Beyond eighth year,Illinois,Midwest
+2,220000,0,More than 600 attorneys,42,220000,Second,Pennsylvania,Northeast
+2,220000,15000,101-600 attorneys,7,235000,Second,Colorado,West
+5,220000,40000,Up to 100 attorneys,35,260000,Fifth,New York,Northeast
+6,220000,20000,Up to 100 attorneys,35,240000,Sixth,New York,Northeast
+7,220000,15000,Up to 100 attorneys,35,235000,Seventh,New York,Northeast
+8,220000,100000,Up to 100 attorneys,6,320000,Eighth,California,West
+9,220000,0,Up to 100 attorneys,35,220000,Beyond eighth year,New York,Northeast
+6,222500,50000,101-600 attorneys,45,272500,Sixth,South Carolina,Southeast
+1,225000,20000,More than 600 attorneys,11,245000,First,Florida,Southeast
+1,225000,20000,More than 600 attorneys,10,245000,First,District of Columbia,Southeast
+1,225000,15000,More than 600 attorneys,35,240000,First,New York,Northeast
+1,225000,10000,More than 600 attorneys,35,235000,First,New York,Northeast
+1,225000,20000,More than 600 attorneys,6,245000,First,California,West
+1,225000,20000,101-600 attorneys,35,245000,First,New York,Northeast
+1,225000,20000,101-600 attorneys,24,245000,First,Massachusetts,Northeast
+1,225000,20000,More than 600 attorneys,24,245000,First,Massachusetts,Northeast
+1,225000,15000,More than 600 attorneys,24,240000,First,Massachusetts,Northeast
+1,225000,5000,101-600 attorneys,10,230000,First,District of Columbia,Southeast
+1,225000,20000,More than 600 attorneys,,245000,First,,
+2,225000,0,More than 600 attorneys,10,225000,Second,District of Columbia,Southeast
+2,225000,0,More than 600 attorneys,23,225000,Second,Maryland,Southeast
+3,225000,0,More than 600 attorneys,48,225000,Third,Texas,Southwest
+4,225000,0,More than 600 attorneys,50,225000,Fourth,Utah,West
+6,225000,30000,More than 600 attorneys,56,255000,Sixth,Wisconsin,Midwest
+7,225000,0,101-600 attorneys,6,225000,Seventh,California,West
+9,225000,25000,Up to 100 attorneys,6,250000,Beyond eighth year,California,West
+4,227000,10000,101-600 attorneys,12,237000,Fourth,Georgia,Southeast
+4,230000,20000,More than 600 attorneys,50,250000,Fourth,Utah,West
+4,230000,0,101-600 attorneys,35,230000,Fourth,New York,Northeast
+6,230000,50000,101-600 attorneys,56,280000,Sixth,Wisconsin,Midwest
+6,232000,50000,101-600 attorneys,6,282000,Sixth,California,West
+1,235000,25000,More than 600 attorneys,35,260000,First,New York,Northeast
+2,235000,0,101-600 attorneys,48,235000,Second,Texas,Southwest
+2,235000,0,More than 600 attorneys,10,235000,Second,District of Columbia,Southeast
+2,235000,40000,More than 600 attorneys,6,275000,Second,California,West
+2,235000,2000,Up to 100 attorneys,10,237000,Second,District of Columbia,Southeast
+6,235000,0,More than 600 attorneys,28,235000,Sixth,Missouri,Midwest
+9,235000,10000,Up to 100 attorneys,48,245000,Beyond eighth year,Texas,Southwest
+4,240000,87500,More than 600 attorneys,52,327500,Fourth,Virginia,Southeast
+5,240000,80000,Up to 100 attorneys,6,320000,Fifth,California,West
+5,240000,0,More than 600 attorneys,4,240000,Fifth,Arizona,Southwest
+8,240000,47500,Up to 100 attorneys,52,287500,Eighth,Virginia,Southeast
+2,245000,30000,More than 600 attorneys,7,275000,Second,Colorado,West
+2,245000,0,More than 600 attorneys,35,245000,Second,New York,Northeast
+5,245000,75000,Up to 100 attorneys,12,320000,Fifth,Georgia,Southeast
+9,245000,50000,Up to 100 attorneys,35,295000,Beyond eighth year,New York,Northeast
+4,250000,0,101-600 attorneys,6,250000,Fourth,California,West
+7,250000,12000,101-600 attorneys,11,262000,Seventh,Florida,Southeast
+8,250000,5000,Up to 100 attorneys,48,255000,Eighth,Texas,Southwest
+9,255000,25000,Up to 100 attorneys,48,280000,Beyond eighth year,Texas,Southwest
+3,260000,0,101-600 attorneys,6,260000,Third,California,West
+3,260000,57500,More than 600 attorneys,35,317500,Third,New York,Northeast
+3,260000,20000,More than 600 attorneys,,280000,Third,,
+3,260000,57000,More than 600 attorneys,35,317000,Third,New York,Northeast
+4,260000,30000,More than 600 attorneys,48,290000,Fourth,Texas,Southwest
+7,260000,0,More than 600 attorneys,7,260000,Seventh,Colorado,West
+9,260000,30000,Up to 100 attorneys,10,290000,Beyond eighth year,District of Columbia,Southeast
+9,260000,0,Up to 100 attorneys,20,260000,Beyond eighth year,Kentucky,Southeast
+6,265000,20000,More than 600 attorneys,28,285000,Sixth,Missouri,Midwest
+7,265000,40000,101-600 attorneys,10,305000,Seventh,District of Columbia,Southeast
+7,269000,26900,101-600 attorneys,7,295900,Seventh,Colorado,West
+6,270000,40000,101-600 attorneys,16,310000,Sixth,Illinois,Midwest
+8,272500,0,More than 600 attorneys,6,272500,Eighth,California,West
+4,275000,30000,More than 600 attorneys,7,305000,Fourth,Colorado,West
+5,275000,0,More than 600 attorneys,16,275000,Fifth,Illinois,Midwest
+6,275000,0,More than 600 attorneys,48,275000,Sixth,Texas,Southwest
+7,275000,78750,More than 600 attorneys,6,353750,Seventh,California,West
+7,275000,25000,101-600 attorneys,10,300000,Seventh,District of Columbia,Southeast
+5,280000,0,101-600 attorneys,35,280000,Fifth,New York,Northeast
+6,280000,300000,101-600 attorneys,48,580000,Sixth,Texas,Southwest
+6,280000,3500,Up to 100 attorneys,6,283500,Sixth,California,West
+9,285000,1000,101-600 attorneys,11,286000,Beyond eighth year,Florida,Southeast
+5,290000,30000,Up to 100 attorneys,48,320000,Fifth,Texas,Southwest
+5,290000,15000,More than 600 attorneys,10,305000,Fifth,District of Columbia,Southeast
+3,295000,0,More than 600 attorneys,25,295000,Third,Michigan,Midwest
+7,295000,75000,More than 600 attorneys,48,370000,Seventh,Texas,Southwest
+9,295000,50000,101-600 attorneys,7,345000,Beyond eighth year,Colorado,West
+5,300000,80000,More than 600 attorneys,48,380000,Fifth,Texas,Southwest
+7,300000,10000,101-600 attorneys,16,310000,Seventh,Illinois,Midwest
+8,300000,0,More than 600 attorneys,11,300000,Eighth,Florida,Southeast
+3,305000,0,More than 600 attorneys,6,305000,Third,California,West
+4,310000,75000,More than 600 attorneys,10,385000,Fourth,District of Columbia,Southeast
+4,310000,81125,Up to 100 attorneys,35,391125,Fourth,New York,Northeast
+4,310000,75000,More than 600 attorneys,16,385000,Fourth,Illinois,Midwest
+5,310000,50000,More than 600 attorneys,10,360000,Fifth,District of Columbia,Southeast
+4,315000,75000,Up to 100 attorneys,10,390000,Fourth,District of Columbia,Southeast
+5,315000,35000,Up to 100 attorneys,10,350000,Fifth,District of Columbia,Southeast
+8,315000,85000,More than 600 attorneys,24,400000,Eighth,Massachusetts,Northeast
+2,320000,10000,101-600 attorneys,6,330000,Second,California,West
+5,325000,25000,Up to 100 attorneys,10,350000,Fifth,District of Columbia,Southeast
+6,325000,30000,More than 600 attorneys,48,355000,Sixth,Texas,Southwest
+7,345000,45000,More than 600 attorneys,24,390000,Seventh,Massachusetts,Northeast
+8,350000,100000,More than 600 attorneys,45,450000,Eighth,South Carolina,Southeast
+8,350000,0,More than 600 attorneys,25,350000,Eighth,Michigan,Midwest
+8,350000,176200,More than 600 attorneys,7,526200,Eighth,Colorado,West
+4,365000,95000,101-600 attorneys,48,460000,Fourth,Texas,Southwest
+6,365000,210000,More than 600 attorneys,35,575000,Sixth,New York,Northeast
+9,370000,90000,More than 600 attorneys,8,460000,Beyond eighth year,Connecticut,Northeast
+6,390000,105000,101-600 attorneys,48,495000,Sixth,Texas,Southwest
+7,390000,152500,More than 600 attorneys,35,542500,Seventh,New York,Northeast
+9,410000,50000,More than 600 attorneys,24,460000,Beyond eighth year,Massachusetts,Northeast
+9,415000,140000,Up to 100 attorneys,35,555000,Beyond eighth year,New York,Northeast
+7,420000,115000,More than 600 attorneys,35,535000,Seventh,New York,Northeast
+7,420000,115000,More than 600 attorneys,10,535000,Seventh,District of Columbia,Southeast
+7,420000,115000,More than 600 attorneys,35,535000,Seventh,New York,Northeast
+8,420000,140000,More than 600 attorneys,36,560000,Eighth,North Carolina,Southeast
+9,420000,115000,More than 600 attorneys,10,535000,Beyond eighth year,District of Columbia,Southeast
+9,420000,164000,More than 600 attorneys,6,584000,Beyond eighth year,California,West
+5,425000,0,101-600 attorneys,10,425000,Fifth,District of Columbia,Southeast
+8,435000,115000,More than 600 attorneys,48,550000,Eighth,Texas,Southwest
+9,435000,115000,More than 600 attorneys,35,550000,Beyond eighth year,New York,Northeast
+7,465000,0,101-600 attorneys,10,465000,Seventh,District of Columbia,Southeast

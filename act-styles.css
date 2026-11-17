@@ -1,0 +1,473 @@
+.act-section-wrap {
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    font-family: 'LatoWeb', Arial, Helvetica, sans-serif;
+    max-width: 640px;
+    margin: 0 auto 20px auto;
+    box-sizing: border-box;
+    padding: 20px 20px 10px 20px;
+}
+
+.act-section-wrap br {
+    display: none !important;
+}
+
+.act-section-wrap *,
+.act-section-wrap *::before,
+.act-section-wrap *::after {
+    box-sizing: inherit;
+}
+
+.act-top-bar {
+    border-top: 4px solid #0b2a44;
+    margin-bottom: 14px;
+}
+
+.act-hed {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.act-dek {
+    font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+.act-reset-button {
+    flex-shrink: 0;
+}
+
+/* = = = = = = = */
+/* Dumbell Plots */
+/* = = = = = = = */
+
+#act-dot-plots {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #ffffff;
+    border: 1px solid #d4d6da;
+    border-radius: 4px;
+    padding: 10px 10px 8px 10px;
+}
+
+.act-metric-group {
+    padding: 0;
+}
+
+.act-metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1.5px solid #0b2a44;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+}
+
+.act-metric-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0b2a44;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.act-legend-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid #6b7280;
+    border-radius: 2px;
+    padding: 2px 6px;
+    font-size: 9px;
+    color: #374151;
+    background-color: #ffffff;
+    white-space: nowrap;
+}
+
+.act-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.act-swatch-min {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #D66853;
+    display: inline-block;
+}
+
+.act-swatch-range {
+    width: 14px;
+    height: 5px;
+    border-radius: 2.5px;
+    background-color: #BFC9C9;
+    display: inline-block;
+}
+
+.act-swatch-max {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #364559;
+    display: inline-block;
+}
+
+.act-swatch-user {
+    width: 1.5px;
+    height: 10px;
+    background-color: #0b2a44;
+    display: inline-block;
+}
+
+.act-plot-grid {
+    display: grid;
+    grid-template-columns: 54px 1fr 1fr;
+    column-gap: 6px;
+}
+
+.act-col-header {
+    font-size: 12px;
+    font-weight: 700;
+    color: #374151;
+    padding-bottom: 4px;
+    text-align: center;
+    line-height: 1.15;
+}
+
+.act-col-header:first-child {
+    text-align: left;
+}
+
+.act-col-subhead {
+    font-size: 8.5px;
+    font-weight: 400;
+    color: #6b7280;
+    margin-top: 1px;
+}
+
+.act-col-divider {
+    border-left: 1px solid #e5e7eb;
+    padding-left: 6px;
+}
+
+.act-svg-col svg {
+    display: block;
+    width: 100%;
+    height: 130px;
+    overflow: visible;
+}
+
+/* = = = = = = = = = = */
+/* SVG Element Styles  */
+/* = = = = = = = = = = */
+
+.act-row-text {
+    font-size: 10px;
+    font-weight: 600;
+    fill: #374151;
+}
+
+.act-gridline {
+    stroke: #f1f5f9;
+    stroke-width: 1px;
+}
+
+.act-range-bar {
+    fill: #cbd5e1;
+}
+
+.act-min-dot {
+    fill: #D66853;
+    stroke: #ffffff;
+    stroke-width: 1px;
+}
+
+.act-max-dot {
+    fill: #364559;
+    stroke: #ffffff;
+    stroke-width: 1px;
+}
+
+.act-user-line {
+    stroke: #0b2a44;
+    stroke-width: 2px;
+}
+
+.act-user-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    fill: #0b2a44;
+}
+
+.act-axis path,
+.act-axis line {
+    stroke: #9ca3af;
+    stroke-width: 1px;
+}
+
+.act-axis text {
+    font-size: 8.5px;
+    fill: #4b5563;
+    font-family: 'LatoWeb', Arial, Helvetica, sans-serif;
+}
+
+
+
+/* = = = = = = = = = */
+/* Right Col Layout  */
+/* = = = = = = = = = */
+
+/* On desktop, make both columns stretch to equal height and split #act-right-column 50/50 */
+@media (min-width: 992px) {
+    .act-content-row {
+        display: flex !important;
+        align-items: stretch !important;
+    }
+
+    .act-content-row::before,
+    .act-content-row::after {
+        display: none !important;
+    }
+
+    #act-right-column {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    #act-map,
+    #act-multi-line {
+        flex: 1 1 0;
+        min-height: 0;
+    }
+}
+
+@media (max-width: 991px) {
+    #act-left-column {
+        margin-bottom: 12px;
+    }
+
+    #act-map {
+        margin-bottom: 12px;
+    }
+}
+
+/* = = = = = = = */
+/* Regional Map  */
+/* = = = = = = = */
+
+#act-map {
+    background-color: #ffffff;
+    border: 1px solid #d4d6da;
+    border-radius: 4px;
+    padding: 10px 10px 8px 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Uses the same .act-metric-header & .act-metric-title classes as the left column */
+.act-map-svg-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+}
+
+.act-map-svg-wrap svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+}
+
+.act-region-path {
+    stroke: #ffffff;
+    stroke-width: 1.25px;
+    stroke-linejoin: round;
+    transition: fill 0.25s ease, opacity 0.15s ease;
+    cursor: pointer;
+}
+
+.act-region-path:hover {
+    opacity: 0.85;
+}
+
+/* Diverging color-ramp legend (Orangest #D66853 <-> Neutral <-> Bluest #364559) */
+.act-map-legend {
+    margin-top: 6px;
+}
+
+.act-map-legend-bar {
+    height: 7px;
+    width: 100%;
+    border-radius: 2px;
+    border: 1px solid #d4d6da;
+}
+
+.act-map-legend-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8.5px;
+    font-weight: 700;
+    color: #4b5563;
+    margin-top: 3px;
+}
+
+/* Floating hover tooltip for exact regional averages */
+.act-map-tooltip {
+    position: fixed;
+    pointer-events: none;
+    background-color: #ffffff;
+    border: 1px solid #0b2a44;
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 11px;
+    line-height: 1.3;
+    color: #373739;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.14);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.12s ease;
+}
+
+/* = = = = = = = = = */
+/* Multi-Line Chart  */
+/* = = = = = = = = = */
+
+#act-multi-line {
+    background-color: #ffffff;
+    border: 1px solid #d4d6da;
+    border-radius: 4px;
+    padding: 10px 10px 8px 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Inline legend showing [User's Region] vs [Other regions] vs [You] */
+.act-line-legend {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 9px;
+    color: #4b5563;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+}
+
+.act-line-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.act-swatch-region-active {
+    width: 14px;
+    height: 2.5px;
+    background-color: #D66853;
+    display: inline-block;
+    border-radius: 1px;
+}
+
+.act-swatch-region-other {
+    width: 14px;
+    height: 1.5px;
+    background-color: #cbd5e1;
+    display: inline-block;
+}
+
+.act-swatch-user-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #0b2a44;
+    border: 1.5px solid #ffffff;
+    box-shadow: 0 0 0 1px #0b2a44;
+    display: inline-block;
+}
+
+.act-line-svg-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+}
+
+.act-line-svg-wrap svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    overflow: visible;
+}
+
+/* Multi-line SVG elements */
+.act-line-gridline {
+    stroke: #f1f5f9;
+    stroke-width: 1px;
+}
+
+.act-region-line {
+    fill: none;
+    stroke: #cbd5e1;
+    stroke-width: 1.5px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.15s ease, stroke-width 0.15s ease;
+    cursor: pointer;
+}
+
+.act-region-line:hover {
+    stroke: #64748b;
+    stroke-width: 2px;
+}
+
+.act-region-line.active {
+    stroke: #D66853;
+    stroke-width: 2.5px;
+}
+
+.act-region-line.active:hover {
+    stroke: #D66853;
+    stroke-width: 3px;
+}
+
+.act-user-point {
+    fill: #0b2a44;
+    stroke: #ffffff;
+    stroke-width: 1.5px;
+}
+
+.act-user-point-label {
+    font-size: 9px;
+    font-weight: 700;
+    fill: #0b2a44;
+}
+
+
+
+/* = = = = = = */
+/*  DARK MODE  */
+/* = = = = = = */
+
+html body.dark-mode .act-section-wrap,
+html body.dark-mode .act-section-wrap *,
+html body.tw-dark .act-section-wrap,
+html body.tw-dark .act-section-wrap *,
+html body.dark .act-section-wrap,
+html body.dark .act-section-wrap *,
+#article-body .act-section-wrap,
+#article-body .act-section-wrap * {
+    color: #373739 !important;
+}
