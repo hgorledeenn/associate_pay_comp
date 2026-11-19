@@ -124,7 +124,7 @@ function formatCurrency(val) {
 
 function formatPctComparison(userVal, avgVal) {
     if (!avgVal || isNaN(avgVal) || userVal === null || isNaN(userVal)) {
-        return { text: "in line with", className: "act-hl act-hl-equal"};
+        return { text: "in line with", className: "act-hl act-hl-equal" };
     }
     const pct = ((userVal - avgVal) / avgVal) * 100;
     const absPct = Math.round(Math.abs(pct));
@@ -271,15 +271,15 @@ function buildSummaryBlurb(data, shouldAnimate = false) {
     const natComp = formatPctComparison(userState.total_comp, natAvg);
     const regComp = formatPctComparison(userState.total_comp, regAvg);
     const segments = [
-        { text: "Your total compensation of "},
+        { text: "Your total compensation of " },
         { text: formatCurrency(userState.total_comp), className: "act-hl act-hl-user" },
-        { text: " is "},
+        { text: " is " },
         { text: natComp.text, className: natComp.className },
-        { text: " the national average of "},
+        { text: " the national average of " },
         { text: formatCurrency(natAvg), className: "act-hl act-nat-avg" },
-        { text: ` for ${classLabel} associates. Within the ${userRegion}, your pay is `},
+        { text: ` for ${classLabel} associates. Within the ${userRegion}, your pay is ` },
         { text: regComp.text, className: regComp.className },
-        { text: ` other ${classLabel} associates.`}
+        { text: ` other ${classLabel} associates.` }
     ];
 
     const fullHtml = segments
@@ -360,6 +360,28 @@ function parseDollarInput(rawStr) {
     return num;
 }
 
+function resetInputForm() {
+    const form = document.getElementById("act-user-form");
+    const yearEl = document.getElementById("act-input-year");
+    const firmEl = document.getElementById("act-input-firm");
+    const stateEl = document.getElementById("act-input-state");
+    const baseEl = document.getElementById("act-input-base");
+    const bonusEl = document.getElementById("act-input-bonus");
+    const errorBox = document.getElementById("act-form-error");
+
+    if (form) form.reset();
+    if (yearEl) yearEl.value = "";
+    if (firmEl) firmEl.value = "";
+    if (stateEl) stateEl.value = "";
+    if (baseEl) baseEl.value = "";
+    if (bonusEl) bonusEl.value = "";
+
+    [yearEl, firmEl, stateEl, baseEl, bonusEl].forEach((el) => {
+        if (el) el.classList.remove("is-invalid");
+    });
+    if (errorBox) errorBox.textContent = "";
+}
+
 function setupInputOverlayHandlers() {
     const overlay = document.getElementById("act-input-overlay");
     const form = document.getElementById("act-user-form");
@@ -374,17 +396,18 @@ function setupInputOverlayHandlers() {
 
     if (!overlay || !form) return;
 
-    // Show overlay when "Update your info" is clicked, pre-filled with current values
+    // Guarantee clean/blank fields on initial load and browser bfcache restore
+    resetInputForm();
+    window.addEventListener("pageshow", () => {
+        if (!overlay.classList.contains("is-hidden")) {
+            resetInputForm();
+        }
+    });
+
+    // Reset all fields to blank/default when "Update your info" is clicked
     if (resetBtn) {
         resetBtn.addEventListener("click", () => {
-            if (userState.assoc_year) yearEl.value = String(Math.min(8, userState.assoc_year));
-            if (userState.firm_size_clean) firmEl.value = userState.firm_size_clean;
-            if (userState.state) stateEl.value = String(userState.state);
-            if (userState.fin_base !== null) baseEl.value = userState.fin_base.toLocaleString("en-US");
-            if (userState.fin_bonus !== null) bonusEl.value = userState.fin_bonus.toLocaleString("en-US");
-
-            [yearEl, firmEl, stateEl, baseEl, bonusEl].forEach((el) => el.classList.remove("is-invalid"));
-            errorBox.textContent = "";
+            resetInputForm();
             overlay.classList.remove("is-hidden");
         });
     }
@@ -448,29 +471,57 @@ function setupInputOverlayHandlers() {
 // 4. GRID & DUMBBELL RENDERING (#act-dot-plots)
 // ==========================================
 
+function positionSmartTooltip(tooltip, event) {
+    const node = tooltip.node();
+    if (!node) return;
+
+    const offset = 14;
+    const tipWidth = node.offsetWidth || 210;
+    const tipHeight = node.offsetHeight || 120;
+    const viewportW = window.innerWidth;
+    const viewportH = window.innerHeight;
+
+    // Default to the right of the cursor; flip left if it would overflow the viewport
+    let left = event.clientX + offset;
+    if (left + tipWidth > viewportW - 10) {
+        left = Math.max(10, event.clientX - tipWidth - offset);
+    }
+
+    // Keep vertically within viewport bounds
+    let top = event.clientY - Math.round(tipHeight / 2);
+    top = Math.max(10, Math.min(viewportH - tipHeight - 10, top));
+
+    tooltip
+        .style("left", `${left}px`)
+        .style("top", `${top}px`);
+}
+
 function buildDashboardGrid(data, domainsByMetric) {
     const root = d3.select("#act-dot-plots");
     root.html(""); // Clear existing content
 
-    // 1. Top Card Header: Headline, Description, Toggle & Legend Key
+    // 1. Top Card Header: Hed & Dek stacked top-left, Legend Key top-right
     const cardTop = root.append("div")
         .attr("class", "act-card-top");
 
-    const titleRow = cardTop.append("div")
-        .attr("class", "act-card-title-row");
+    const headerRow = cardTop.append("div")
+        .attr("class", "act-card-header-row");
 
-    titleRow.append("h3")
+    headerRow.append("h3")
         .attr("class", "act-metric-title")
         .text("Compensation Ranges by Firm Size");
 
-    // Segmented Toggle: [Your Class] vs [All Associates]
-    const toggleGroup = titleRow.append("div")
+    // 2. Centered Segmented Toggle below the horizontal divider line
+    const toggleRow = root.append("div")
+        .attr("class", "act-card-toggle-row");
+
+    const toggleGroup = toggleRow.append("div")
         .attr("class", "act-toggle-group")
         .attr("role", "group")
         .attr("aria-label", "Comparison cohort");
 
     const toggleOptions = [
-        { id: "class", label: `${userState.assoc_title}-Year` },
+        { id: "class", label: `${userState.assoc_title}-Year Associates` },
         { id: "all", label: "All Associates" }
     ];
 
@@ -486,14 +537,7 @@ function buildDashboardGrid(data, domainsByMetric) {
             });
     });
 
-    cardTop.append("p")
-        .attr("class", "act-card-sub")
-        .text("Min-to-max pay ranges across firm sizes compared against your reported compensation.");
-
-    const controlsRow = cardTop.append("div")
-        .attr("class", "act-card-controls");
-
-    const legendBox = controlsRow.append("div")
+    const legendBox = toggleRow.append("span")
         .attr("class", "act-legend-box");
 
     legendBox.append("span")
@@ -512,7 +556,11 @@ function buildDashboardGrid(data, domainsByMetric) {
         .attr("class", "act-legend-item")
         .html(`<span class="act-swatch-user"></span> Your pay`);
 
-    // 2. 4-Column Horizontal Grid: [Firm Size] | [Total Comp] | [Base Salary] | [Bonus]
+    cardTop.append("p")
+        .attr("class", "act-card-sub")
+        .text("Min-to-max pay ranges across firm sizes compared against your reported compensation.");
+
+    // 3. 4-Column Horizontal Grid: [Firm Size] | [Total Comp] | [Base Salary] | [Bonus]
     const grid = root.append("div")
         .attr("class", "act-plot-grid");
 
@@ -535,13 +583,26 @@ function buildDashboardGrid(data, domainsByMetric) {
         .domain(FIRM_SIZES.map((s) => s.label))
         .range([CHART_GEOM.marginTop + 16, CHART_GEOM.height - CHART_GEOM.marginBottom - 14]);
 
+    // Calculate band height for the user's firm-size highlight row
+    const step = FIRM_SIZES.length > 1
+        ? yScale(FIRM_SIZES[1].label) - yScale(FIRM_SIZES[0].label)
+        : 28;
+    const highlightHeight = Math.max(20, step * 0.78);
+
     // Col 1: Firm-size labels SVG
     const labelCol = grid.append("div")
         .attr("class", "act-svg-col");
-    drawLabelColumn(labelCol, yScale);
+    drawLabelColumn(labelCol, yScale, highlightHeight);
 
-    // Helper to summarize min/max per firm size based on active toggle mode
+    // Helper to summarize min/median/max per firm size based on active toggle mode
     const filterByClass = userState.cohort_mode === "class";
+    const tooltipShortNames = {
+        small: "Small (<100)",
+        medium: "Medium (101–600)",
+        large: "Large (600+)",
+        all: "All"
+    };
+
     const summarizeMetric = (metricKey) =>
         FIRM_SIZES.map((sizeObj) => {
             const slice = data.filter((d) => {
@@ -555,8 +616,13 @@ function buildDashboardGrid(data, domainsByMetric) {
             }).map((d) => d[metricKey]);
 
             return {
+                id: sizeObj.id,
                 label: sizeObj.label,
+                shortLabel: tooltipShortNames[sizeObj.id] || sizeObj.label,
+                filterValue: sizeObj.filterValue,
+                isUserFirm: sizeObj.filterValue === userState.firm_size_clean,
                 min: slice.length ? d3.min(slice) : null,
+                median: slice.length ? d3.median(slice) : null,
                 max: slice.length ? d3.max(slice) : null
             };
         });
@@ -564,35 +630,50 @@ function buildDashboardGrid(data, domainsByMetric) {
     // Cols 2, 3, 4: One dumbbell column per metric
     METRICS.forEach((metric) => {
         const metricCol = grid.append("div")
-            .attr("class", "act-svg-col act-col-divider");
+            .attr("class", "act-svg-col act-col-divider is-metric-col");
 
         drawDumbbellColumn({
             container: metricCol,
+            metricLabel: metric.label,
             rows: summarizeMetric(metric.key),
             userValue: userState[metric.key],
             domain: domainsByMetric[metric.key],
-            yScale
+            yScale,
+            highlightHeight
         });
     });
 }
 
-function drawLabelColumn(container, yScale) {
+function drawLabelColumn(container, yScale, highlightHeight) {
     const width = 52;
     const svg = container.append("svg")
         .attr("viewBox", `0 0 ${width} ${CHART_GEOM.height}`)
         .attr("preserveAspectRatio", "xMinYMid meet");
 
     FIRM_SIZES.forEach((sizeObj) => {
+        const y = yScale(sizeObj.label);
+
+        if (sizeObj.filterValue === userState.firm_size_clean) {
+            svg.append("rect")
+                .attr("class", "act-row-highlight")
+                .attr("x", -4)
+                .attr("y", y - highlightHeight / 2)
+                .attr("width", width + 8)
+                .attr("height", highlightHeight)
+        }
+
         svg.append("text")
             .attr("class", "act-row-text")
-            .attr("x", 0)
-            .attr("y", yScale(sizeObj.label))
-            .attr("dominant-baseline", "middle")
+            .attr("x", width / 2)
+            .attr("y", y)
+            .attr("dy", "0.35em")
+            .attr("text-anchor", "middle")
+            .style("font-weight", sizeObj.filterValue === userState.firm_size_clean ? "700" : "600")
             .text(sizeObj.label);
     });
 }
 
-function drawDumbbellColumn({ container, rows, userValue, domain, yScale }) {
+function drawDumbbellColumn({ container, metricLabel, rows, userValue, domain, yScale, highlightHeight }) {
     const width = 135;
     const margin = { left: 8, right: 8 };
     const axisY = CHART_GEOM.height - CHART_GEOM.marginBottom;
@@ -604,6 +685,18 @@ function drawDumbbellColumn({ container, rows, userValue, domain, yScale }) {
     const svg = container.append("svg")
         .attr("viewBox", `0 0 ${width} ${CHART_GEOM.height}`)
         .attr("preserveAspectRatio", "xMidYMid meet");
+
+    // 0. Subtle highlight band across the respondent's firm size row
+    rows.forEach((row) => {
+        if (row.isUserFirm) {
+            svg.append("rect")
+                .attr("class", "act-row-highlight")
+                .attr("x", -3)
+                .attr("y", yScale(row.label) - highlightHeight / 2)
+                .attr("width", width + 6)
+                .attr("height", highlightHeight)
+        }
+    });
 
     // 1. Subtle horizontal row tracks
     rows.forEach((row) => {
@@ -691,6 +784,62 @@ function drawDumbbellColumn({ container, rows, userValue, domain, yScale }) {
 
     axisGroup.select(".tick:first-of-type text").attr("text-anchor", "start");
     axisGroup.select(".tick:last-of-type text").attr("text-anchor", "end");
+
+    // 5. Column hover tooltip with Min / Median / Max breakdown table
+    let tooltip = d3.select("body").select(".act-map-tooltip");
+    if (tooltip.empty()) {
+        tooltip = d3.select("body").append("div")
+            .attr("class", "act-map-tooltip");
+    }
+
+    const cohortLabel = userState.cohort_mode === "class"
+        ? `${userState.assoc_title}-Year`
+        : "All Associates";
+
+    const tableRowsHtml = rows.map((r) => {
+        const minStr = r.min !== null ? formatK(r.min) : "—";
+        const medStr = r.median !== null ? formatK(r.median) : "—";
+        const maxStr = r.max !== null ? formatK(r.max) : "—";
+        return `<tr class="${r.isUserFirm ? "is-user-firm" : ""}">
+            <td>${r.shortLabel}</td>
+            <td>${minStr}</td>
+            <td>${medStr}</td>
+            <td>${maxStr}</td>
+        </tr>`;
+    }).join("");
+
+    const tooltipHtml = `
+        <div class="act-dumbbell-tooltip">
+            <strong>${metricLabel}</strong> <span style="color:#6b7280;">(${cohortLabel})</span>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Firm Size</th>
+                        <th>Min</th>
+                        <th>Median</th>
+                        <th>Max</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${tableRowsHtml}
+                </tbody>
+            </table>
+        </div>
+    `;
+
+    container
+        .on("mouseenter", (event) => {
+            tooltip
+                .html(tooltipHtml)
+                .style("opacity", 1);
+            positionSmartTooltip(tooltip, event);
+        })
+        .on("mousemove", (event) => {
+            positionSmartTooltip(tooltip, event);
+        })
+        .on("mouseleave", () => {
+            tooltip.style("opacity", 0);
+        });
 }
 
 // ==========================================
@@ -701,13 +850,22 @@ function buildRegionalMap(data, geojson) {
     const root = d3.select("#act-map");
     root.html(""); // Clear existing content
 
-    // 1. Header reflecting the user's associate class
-    const header = root.append("div")
-        .attr("class", "act-metric-header");
+    // Resolve user's home region for default display
+    const stateMatch = data.find((d) => d.state === userState.state && d.region && d.region !== "None");
+    const fallbackState = US_STATES.find((s) => s.code === userState.state);
+    const userRegion = stateMatch ? stateMatch.region : (fallbackState ? fallbackState.region : null);
 
-    header.append("h3")
+    // 1. Top Card Header: Hed + Dek + Navy Bottom Divider
+    const cardTop = root.append("div")
+        .attr("class", "act-card-top");
+
+    cardTop.append("h3")
         .attr("class", "act-metric-title")
         .text(`${userState.assoc_title}-Year Regional Total Comp vs. You`);
+
+    cardTop.append("p")
+        .attr("class", "act-card-sub")
+        .text(`See how average pay for ${userState.assoc_title.toLowerCase()}-year associates differs across the country.`);
 
     // 2. Aggregate average total_comp per region for the user's associate class
     const regionStats = new Map();
@@ -737,14 +895,13 @@ function buildRegionalMap(data, geojson) {
     const rawMin = d3.min(diffs) ?? 0;
     const rawMax = d3.max(diffs) ?? 0;
 
-    // Clamp domain ends around 0 so #BFC9C9 always represents $0 (exact parity with user)
     const minDiff = Math.min(0, rawMin);
     const maxDiff = Math.max(0, rawMax);
 
-    const colorLow = "#D66853";     // Furthest below user's total comp
-    const colorMid = "#BFC9C9";     // Parity ($0 difference)
-    const colorHigh = "#364559";    // Furthest above user's total comp
-    const colorNoData = "#f3f4f6";  // Light gray for "None" / no survey data
+    const colorLow = "#D66853";
+    const colorMid = "#BFC9C9";
+    const colorHigh = "#364559";
+    const colorNoData = "#f3f4f6";
 
     let colorScale;
     let gradientCss;
@@ -771,14 +928,70 @@ function buildRegionalMap(data, geojson) {
         tickLabels = ["Your pay ($0)", formatSignedK(maxDiff)];
     }
 
-    // 4. Render SVG map using d3.geoIdentity() for pre-projected GeoJSON coordinates
-    const svgWrap = root.append("div")
+    // 4. Split Layout: [Left Info Panel] | [Right Map + Legend]
+    const split = root.append("div")
+        .attr("class", "act-map-split");
+
+    const infoPanel = split.append("div")
+        .attr("class", "act-map-info-panel");
+
+    const mapRight = split.append("div")
+        .attr("class", "act-map-right");
+
+    function updateMapInfoPanel(regionName) {
+        const stats = regionName ? regionStats.get(regionName) : null;
+        if (!stats) {
+            infoPanel.html(`
+                <div>
+                    <div class="act-map-info-kicker">Region Details</div>
+                    <div class="act-map-info-region">Hover a region</div>
+                    <div class="act-map-info-stat">Move over the map to compare regional averages to your pay.</div>
+                </div>
+            `);
+            return;
+        }
+
+        const isUserHome = stats.region === userRegion;
+        const pct = userState.total_comp > 0
+            ? Math.round(((stats.avg - userState.total_comp) / userState.total_comp) * 100)
+            : 0;
+
+        let diffLabel = "Equal to your pay";
+        let diffClass = "is-equal";
+        if (pct > 0) {
+            diffLabel = `${pct}% above your pay`;
+            diffClass = "is-higher";
+        } else if (pct < 0) {
+            diffLabel = `${Math.abs(pct)}% below your pay`;
+            diffClass = "is-lower";
+        }
+
+        infoPanel.html(`
+            <div>
+                <div class="act-map-info-kicker">${isUserHome ? "Your Region" : "Selected Region"}</div>
+                <div class="act-map-info-region">${stats.region}</div>
+                <div class="act-map-info-stat">
+                    Avg. total comp:<br>
+                    <strong>${formatCurrency(stats.avg)}</strong>
+                </div>
+                <span class="act-map-info-diff ${diffClass}">${diffLabel}</span>
+            </div>
+            <div style="font-size:9.5px; color:#6b7280; margin-top:6px;">
+                ${isUserHome ? "Hover another region on the map to compare." : "Move off map to reset to your region."}
+            </div>
+        `);
+    }
+
+    // Initialize left panel with the user's own region
+    updateMapInfoPanel(userRegion);
+
+    // 5. Render SVG map
+    const svgWrap = mapRight.append("div")
         .attr("class", "act-map-svg-wrap");
 
-    const width = 240;
-    const height = 145;
+    const width = 230;
+    const height = 140;
 
-    // Note: If map renders upside down, switch .reflectY(true) to .reflectY(false)
     const projection = d3.geoIdentity()
         .reflectY(true)
         .fitSize([width, height], geojson);
@@ -788,13 +1001,6 @@ function buildRegionalMap(data, geojson) {
     const svg = svgWrap.append("svg")
         .attr("viewBox", `0 0 ${width} ${height}`)
         .attr("preserveAspectRatio", "xMidYMid meet");
-
-    // Reuse or create a single floating tooltip on <body>
-    let tooltip = d3.select("body").select(".act-map-tooltip");
-    if (tooltip.empty()) {
-        tooltip = d3.select("body").append("div")
-            .attr("class", "act-map-tooltip");
-    }
 
     svg.selectAll("path.act-region-path")
         .data(geojson.features)
@@ -812,27 +1018,19 @@ function buildRegionalMap(data, geojson) {
             const regionName = feature.properties.region;
             return (!regionName || regionName === "None" || !regionStats.has(regionName)) ? "default" : "pointer";
         })
-        .on("mousemove", (event, feature) => {
+        .on("mouseenter", function (event, feature) {
             const regionName = feature.properties.region;
-            if (!regionName || regionName === "None") return;
-            const stats = regionStats.get(regionName);
-            if (!stats) return;
-
-            tooltip
-                .style("opacity", 1)
-                .style("left", `${event.clientX + 12}px`)
-                .style("top", `${event.clientY - 28}px`)
-                .html(
-                    `<strong>${stats.region}</strong><br>` +
-                    `Avg total comp: <strong>${formatK(stats.avg)}</strong> (${formatSignedK(stats.diff)} vs. you)`
-                );
+            if (!regionName || regionName === "None" || !regionStats.has(regionName)) return;
+            d3.select(this).raise().classed("is-hovered", true);
+            updateMapInfoPanel(regionName);
         })
-        .on("mouseleave", () => {
-            tooltip.style("opacity", 0);
+        .on("mouseleave", function () {
+            d3.select(this).classed("is-hovered", false);
+            updateMapInfoPanel(userRegion);
         });
 
-    // 5. Auto-updating diverging gradient legend at the bottom of #act-map
-    const legend = root.append("div")
+    // 6. Diverging gradient legend
+    const legend = mapRight.append("div")
         .attr("class", "act-map-legend");
 
     legend.append("div")
@@ -860,16 +1058,22 @@ function buildMultiLineChart(data) {
     const fallbackState = US_STATES.find((s) => s.code === userState.state);
     const activeRegion = stateMatch ? stateMatch.region : (fallbackState ? fallbackState.region : null);
 
-    // 2. Header matching the rest of the dashboard
-    const header = root.append("div")
-        .attr("class", "act-metric-header");
+    // 2. Two-column split: [Left: Hed + Legend + Line Chart] | [Right: Year Breakdown Readout]
+    const split = root.append("div")
+        .attr("class", "act-line-split");
 
-    header.append("h3")
+    const mainCol = split.append("div")
+        .attr("class", "act-line-main");
+
+    const readoutCol = split.append("div")
+        .attr("class", "act-line-readout");
+
+    mainCol.append("h3")
         .attr("class", "act-metric-title")
         .text("Total Comp by Class & Region");
 
     // 3. Compact inline legend
-    const legend = root.append("div")
+    const legend = mainCol.append("div")
         .attr("class", "act-line-legend");
 
     if (activeRegion) {
@@ -900,7 +1104,6 @@ function buildMultiLineChart(data) {
     const seriesList = [];
 
     byRegion.forEach((rows, regionName) => {
-        // Pool all years >= 8 into bucket 8 ("8+")
         const byYear = d3.rollup(
             rows,
             (v) => d3.mean(v, (d) => d.total_comp),
@@ -918,6 +1121,7 @@ function buildMultiLineChart(data) {
             seriesList.push({
                 region: regionName,
                 isActive: regionName === activeRegion,
+                byYear,
                 points
             });
         }
@@ -926,19 +1130,21 @@ function buildMultiLineChart(data) {
     // Sort so the highlighted user region is drawn last (on top of gray lines)
     seriesList.sort((a, b) => Number(a.isActive) - Number(b.isActive));
 
+    // Alphabetical list for the right-hand readout panel
+    const readoutRegions = [...seriesList].sort((a, b) => a.region.localeCompare(b.region));
+
     // 5. Set up SVG scales & axes
-    const svgWrap = root.append("div")
+    const svgWrap = mainCol.append("div")
         .attr("class", "act-line-svg-wrap");
 
-    const width = 240;
+    const width = 220;
     const height = 148;
-    const margin = { top: 14, right: 12, bottom: 20, left: 32 };
+    const margin = { top: 14, right: 10, bottom: 20, left: 32 };
 
     const xScale = d3.scaleLinear()
         .domain([1, 8])
         .range([margin.left, width - margin.right]);
 
-    // Include both regional averages and user's own total_comp in Y domain
     const allAvgs = seriesList.flatMap((s) => s.points.map((p) => p.avg));
     if (userState.total_comp !== null && !isNaN(userState.total_comp)) {
         allAvgs.push(userState.total_comp);
@@ -993,38 +1199,65 @@ function buildMultiLineChart(data) {
         .y((d) => yScale(d.avg))
         .curve(d3.curveMonotoneX);
 
-    let tooltip = d3.select("body").select(".act-map-tooltip");
-    if (tooltip.empty()) {
-        tooltip = d3.select("body").append("div")
-            .attr("class", "act-map-tooltip");
-    }
-
     svg.selectAll("path.act-region-line")
         .data(seriesList)
         .enter()
         .append("path")
         .attr("class", (d) => (d.isActive ? "act-region-line active" : "act-region-line"))
-        .attr("d", (d) => lineGenerator(d.points))
-        .on("mousemove", function (event, d) {
-            d3.select(this).raise();
-            const yr1 = d.points[0];
-            const yrLast = d.points[d.points.length - 1];
-            tooltip
-                .style("opacity", 1)
-                .style("left", `${event.clientX + 12}px`)
-                .style("top", `${event.clientY - 28}px`)
-                .html(
-                    `<strong>${d.region}</strong>${d.isActive ? " (Your region)" : ""}<br>` +
-                    `Yr ${yr1.year === 8 ? "8+" : yr1.year}: <strong>${formatK(yr1.avg)}</strong> → ` +
-                    `Yr ${yrLast.year === 8 ? "8+" : yrLast.year}: <strong>${formatK(yrLast.avg)}</strong>`
-                );
-        })
-        .on("mouseleave", function () {
-            tooltip.style("opacity", 0);
-            svg.selectAll("path.act-region-line.active").raise();
-        });
+        .attr("d", (d) => lineGenerator(d.points));
 
-    // 7. Plot user's own (assoc_year, total_comp) benchmark dot + label
+    // 7. Interactive hover crosshair + dots + right-side readout updater
+    const hoverLayer = svg.append("g").attr("class", "act-line-hover-layer");
+
+    const guideLine = hoverLayer.append("line")
+        .attr("class", "act-hover-guide")
+        .attr("y1", margin.top)
+        .attr("y2", height - margin.bottom);
+
+    const hoverDots = hoverLayer.selectAll("circle.act-hover-dot")
+        .data(seriesList)
+        .enter()
+        .append("circle")
+        .attr("class", (d) => (d.isActive ? "act-hover-dot active" : "act-hover-dot"))
+        .attr("r", (d) => (d.isActive ? 3.2 : 2.5));
+
+    const defaultYear = Math.min(8, Math.max(1, userState.assoc_year || 1));
+
+    function setFocusedYear(yr) {
+        const clampedYr = Math.min(8, Math.max(1, Math.round(yr)));
+        const gx = xScale(clampedYr);
+
+        guideLine
+            .attr("x1", gx)
+            .attr("x2", gx);
+
+        hoverDots
+            .attr("cx", gx)
+            .attr("cy", (d) => (d.byYear.has(clampedYr) ? yScale(d.byYear.get(clampedYr)) : -999))
+            .style("display", (d) => (d.byYear.has(clampedYr) ? null : "none"));
+
+        const yearTitle = YEAR_TITLES[clampedYr] || `${clampedYr}th`;
+        const rowsHtml = readoutRegions.map((s) => {
+            const val = s.byYear.get(clampedYr);
+            const valStr = val !== undefined && !isNaN(val) ? formatCurrency(val) : "—";
+            return `
+                <div class="act-readout-item${s.isActive ? " is-active" : ""}">
+                    <span class="act-readout-region">${s.region}</span>
+                    <span class="act-readout-val">${valStr}</span>
+                </div>
+            `;
+        }).join("");
+
+        readoutCol.html(`
+            <div class="act-line-readout-year">(${yearTitle}-Year Associates)</div>
+            <div class="act-line-readout-list">${rowsHtml}</div>
+        `);
+    }
+
+    // Initialize to the user's own class year
+    setFocusedYear(defaultYear);
+
+    // 8. Plot user's own (assoc_year, total_comp) benchmark dot + label on top
     if (
         userState.assoc_year >= 1 &&
         userState.total_comp !== null &&
@@ -1047,6 +1280,22 @@ function buildMultiLineChart(data) {
             .attr("text-anchor", ux > width - margin.right - 18 ? "end" : "middle")
             .text(formatK(userState.total_comp));
     }
+
+    // 9. Transparent hover overlay rect across the plot area to scrub years 1..8+
+    svg.append("rect")
+        .attr("x", margin.left)
+        .attr("y", margin.top)
+        .attr("width", width - margin.left - margin.right)
+        .attr("height", height - margin.top - margin.bottom)
+        .attr("fill", "transparent")
+        .on("mousemove", function (event) {
+            const [mx] = d3.pointer(event, this);
+            const hoveredYr = xScale.invert(mx + margin.left);
+            setFocusedYear(hoveredYr);
+        })
+        .on("mouseleave", () => {
+            setFocusedYear(defaultYear);
+        });
 }
 
 // Initialize on load
