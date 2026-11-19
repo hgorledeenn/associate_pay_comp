@@ -17,14 +17,19 @@
     <div class="act-section-wrap">
         <div class="act-top-bar"></div>
         <div class="act-dashboard-wrap">
-            <div class="act-hed">
-                Associate Pay Comp Tool
+            <div class="act-top-section">
+                <div class="act-hed-dek">
+                    <div class="act-hed">
+                        Associate Pay Comp Tool
+
+                    </div>
+                    <div class="act-dek">
+                        Enter your info to see how your pay compares to other associates in your region and nationwide.
+                    </div>
+                </div>
                 <span class="act-reset-button">
                     <button type="button" class="btn btn-default" id="act-reset-button">Update your info</button>
                 </span>
-            </div>
-            <div class="act-dek">
-                Enter your info to see how your pay compares to other associates in your region and nationwide.
             </div>
         </div>
 
@@ -97,8 +102,18 @@
 
             <div class="row act-content-row">
                 <div class="col-md-7 col-sm-12 col-xs-12" id="act-left-column">
-                    <div id="act-dot-plots">
+                    <div id="act-left-blurb">
+                        <p>
+                            Your total compensation of <span data-stat="user-total">user.val</span> is
+                            <strong data-stat="nat-diff">change</strong> the national average of
+                            <span data-stat="nat-avg">nat.avg</span> for
+                            <span data-stat="assoc-class">associate_class</span> associates.
+                            Within the <span data-stat="user-region">user.region</span>, your pay is
+                            <strong data-stat="reg-diff">change</strong> other
+                            <span data-stat="assoc-class-2">associate_class</span> associates.
+                        </p>
                     </div>
+                    <div id="act-dot-plots"></div>
                 </div>
                 <div class="col-md-5 col-sm-12 col-xs-12" id="act-right-column">
                     <div id="act-map"></div>
@@ -106,8 +121,13 @@
                 </div>
             </div>
 
-
-
+            <div class="act-footer">
+                <p><span id="act-note">Note: State-level pay data averages are not available for Alaska or New Mexico.
+                        Data
+                        for their respective regions come from the other states in the region.</span></p>
+                <p><span id="act-credit">Dashboard: Holden Green</span> &middot; <span id="act-source">Source: Law360
+                        Pulse Compensation Survey</span></p>
+            </div>
         </div>
 </body>
 

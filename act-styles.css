@@ -2,7 +2,7 @@
     background-color: #ffffff;
     border: 1px solid #000000;
     font-family: 'LatoWeb', Arial, Helvetica, sans-serif;
-    max-width: 640px;
+    max-width: 1190px;
     margin: 0 auto 20px auto;
     box-sizing: border-box;
     padding: 20px 20px 10px 20px;
@@ -23,11 +23,16 @@
     margin-bottom: 14px;
 }
 
-.act-hed {
+.act-top-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 12px;
+}
+
+.act-hed-dek {}
+
+.act-hed {
     font-size: 25px;
     font-weight: bold;
     margin: 0;
@@ -43,6 +48,155 @@
     flex-shrink: 0;
 }
 
+.act-footer {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #00000070;
+}
+
+#sls-note {
+    margin-bottom: 4px;
+    line-height: 1.25;
+}
+
+#sls-credit {
+    margin-top: 0px;
+    line-height: 1.5;
+}
+
+/* = = = = = = = = = */
+/* Left Col Layout   */
+/* = = = = = = = = = */
+
+#act-left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#act-left-blurb {
+    background-color: #1f293720;
+    display: grid;
+    align-items: start;
+    padding: 6px 10px 8px 10px;
+}
+
+#act-left-blurb p {
+    grid-area: 1 / 1;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #0b2a44;
+    margin: 0;
+}
+
+/* Base inline highlight badge */
+#act-left-blurb .act-hl {
+    display: inline;
+    /* font-weight: 700; */
+    border-radius: 0px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+/* User's own dollar value highlight */
+#act-left-blurb .act-hl-user {
+    /* background-color: #0b2a44;
+    color: #ffffff !important; */
+    text-decoration: underline;
+    font-size: 22px;
+}
+
+/* Conditional formatting for % higher / lower / equal */
+#act-left-blurb .act-hl-higher {
+    background-color: #364559;
+    color: #ffffff !important;
+    padding: 2px 5px;
+    /* border: 1px solid #bfd1e0; */
+}
+
+#act-left-blurb .act-hl-lower {
+    background-color: #D66853;
+    color: #ffffff !important;
+    padding: 2px 5px;
+    /* border: 1px solid #f2c4ba; */
+}
+
+#act-left-blurb .act-hl-equal {
+    background-color: #f1f5f9;
+    color: #374151 !important;
+    padding: 2px 5px;
+    /* border: 1px solid #cbd5e1; */
+}
+
+#act-left-blurb .act-nat-avg {
+    text-decoration: underline;
+}
+
+/* Dark-mode / #article-body specificity overrides so text colors stay crisp */
+html body.dark-mode .act-section-wrap #act-left-blurb .act-hl-user,
+html body.tw-dark .act-section-wrap #act-left-blurb .act-hl-user,
+html body.dark .act-section-wrap #act-left-blurb .act-hl-user,
+#article-body .act-section-wrap #act-left-blurb .act-hl-user {
+    color: #ffffff !important;
+}
+
+html body.dark-mode .act-section-wrap #act-left-blurb .act-hl-higher,
+html body.tw-dark .act-section-wrap #act-left-blurb .act-hl-higher,
+html body.dark .act-section-wrap #act-left-blurb .act-hl-higher,
+#article-body .act-section-wrap #act-left-blurb .act-hl-higher {
+    color: #0b2a44 !important;
+}
+
+html body.dark-mode .act-section-wrap #act-left-blurb .act-hl-lower,
+html body.tw-dark .act-section-wrap #act-left-blurb .act-hl-lower,
+html body.dark .act-section-wrap #act-left-blurb .act-hl-lower,
+#article-body .act-section-wrap #act-left-blurb .act-hl-lower {
+    color: #a63f2b !important;
+}
+
+#act-left-blurb-highlight {
+    background-color: #0b2a44;
+}
+
+#act-left-blurb-highlight p {
+    color: #ffffff;
+}
+
+/* Reserves the exact wrapped height of the full sentence at all viewport widths */
+#act-left-blurb p.act-blurb-ghost {
+    visibility: hidden;
+    pointer-events: none;
+    user-select: none;
+}
+
+#act-left-blurb p.act-blurb-live.is-typing::after {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: #0b2a44;
+    margin-left: 2px;
+    vertical-align: -2px;
+    animation: act-blink 0.7s steps(1) infinite;
+}
+
+#act-left-blurb p.is-typing::after {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: #0b2a44;
+    margin-left: 2px;
+    vertical-align: -2px;
+    animation: act-blink 0.7s steps(1) infinite;
+}
+
+@keyframes act-blink {
+    50% {
+        opacity: 0;
+    }
+}
+
 /* = = = = = = = */
 /* Dumbell Plots */
 /* = = = = = = = */
@@ -50,33 +204,84 @@
 #act-dot-plots {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: space-between;
     background-color: #ffffff;
     border: 1px solid #d4d6da;
     border-radius: 4px;
-    padding: 10px 10px 8px 10px;
+    padding: 12px 12px 10px 12px;
 }
 
-.act-metric-group {
-    padding: 0;
+.act-card-top {
+    border-bottom: 1.5px solid #0b2a44;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
 }
 
-.act-metric-header {
+.act-card-title-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 6px;
-    border-bottom: 1.5px solid #0b2a44;
-    padding-bottom: 4px;
-    margin-bottom: 6px;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .act-metric-title {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     color: #0b2a44;
     margin: 0;
-    white-space: nowrap;
+}
+
+.act-card-sub {
+    font-size: 11.5px;
+    color: #4b5563;
+    margin: 3px 0 8px 0;
+    line-height: 1.3;
+}
+
+.act-card-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Class vs. All Associates Segmented Toggle */
+.act-toggle-group {
+    display: inline-flex;
+    border: 1px solid #0b2a44;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.act-toggle-btn {
+    background-color: #ffffff;
+    color: #0b2a44;
+    border: none;
+    padding: 3px 9px;
+    font-size: 10.5px;
+    font-weight: 700;
+    font-family: 'LatoWeb', Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.act-toggle-btn + .act-toggle-btn {
+    border-left: 1px solid #0b2a44;
+}
+
+.act-toggle-btn.is-active {
+    background-color: #0b2a44;
+    color: #ffffff;
+}
+
+/* Keep active toggle text white in dark mode */
+html body.dark-mode .act-section-wrap .act-toggle-btn.is-active,
+html body.tw-dark .act-section-wrap .act-toggle-btn.is-active,
+html body.dark .act-section-wrap .act-toggle-btn.is-active,
+#article-body .act-section-wrap .act-toggle-btn.is-active {
+    color: #ffffff !important;
 }
 
 .act-legend-box {
@@ -129,17 +334,19 @@
     display: inline-block;
 }
 
+/* 4-Column Horizontal Grid: [Firm Size] | [Total Comp] | [Base Salary] | [Bonus] */
 .act-plot-grid {
     display: grid;
-    grid-template-columns: 54px 1fr 1fr;
+    grid-template-columns: 52px repeat(3, minmax(0, 1fr));
     column-gap: 6px;
+    align-items: stretch;
 }
 
 .act-col-header {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     color: #374151;
-    padding-bottom: 4px;
+    padding-bottom: 6px;
     text-align: center;
     line-height: 1.15;
 }
@@ -160,11 +367,74 @@
     padding-left: 6px;
 }
 
+.act-svg-col {
+    display: flex;
+    align-items: center;
+}
+
 .act-svg-col svg {
     display: block;
     width: 100%;
-    height: 130px;
+    height: 195px;
     overflow: visible;
+}
+
+/* = = = = = = = = = */
+/* Column Sizing     */
+/* = = = = = = = = = */
+
+@media (min-width: 992px) {
+    .act-content-row {
+        display: flex !important;
+        align-items: stretch !important;
+    }
+
+    .act-content-row::before,
+    .act-content-row::after {
+        display: none !important;
+    }
+
+    /* Split left column roughly 1/3 blurb (top) and 2/3 barbell card (bottom) */
+    #act-left-blurb {
+        flex: 1 1 0;
+    }
+
+    #act-dot-plots {
+        flex: 2 1 0;
+    }
+
+    #act-right-column {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    #act-map,
+    #act-multi-line {
+        flex: 1 1 0;
+        min-height: 0;
+    }
+}
+
+@media (max-width: 991px) {
+    #act-left-column {
+        margin-bottom: 12px;
+    }
+
+    #act-map {
+        margin-bottom: 12px;
+    }
+}
+
+@media (max-width: 575px) {
+    .act-plot-grid {
+        grid-template-columns: 44px repeat(3, minmax(0, 1fr));
+        column-gap: 4px;
+    }
+
+    .act-col-header {
+        font-size: 10px;
+    }
 }
 
 /* = = = = = = = = = = */
@@ -221,47 +491,6 @@
     font-family: 'LatoWeb', Arial, Helvetica, sans-serif;
 }
 
-
-
-/* = = = = = = = = = */
-/* Right Col Layout  */
-/* = = = = = = = = = */
-
-/* On desktop, make both columns stretch to equal height and split #act-right-column 50/50 */
-@media (min-width: 992px) {
-    .act-content-row {
-        display: flex !important;
-        align-items: stretch !important;
-    }
-
-    .act-content-row::before,
-    .act-content-row::after {
-        display: none !important;
-    }
-
-    #act-right-column {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    #act-map,
-    #act-multi-line {
-        flex: 1 1 0;
-        min-height: 0;
-    }
-}
-
-@media (max-width: 991px) {
-    #act-left-column {
-        margin-bottom: 12px;
-    }
-
-    #act-map {
-        margin-bottom: 12px;
-    }
-}
-
 /* = = = = = = = */
 /* Regional Map  */
 /* = = = = = = = */
@@ -293,7 +522,7 @@
 
 .act-region-path {
     stroke: #ffffff;
-    stroke-width: 1.25px;
+    stroke-width: 0.2px;
     stroke-linejoin: round;
     transition: fill 0.25s ease, opacity 0.15s ease;
     cursor: pointer;

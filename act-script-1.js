@@ -6,10 +6,11 @@ const userState = {
     assoc_year: 3,                          // Numeric 1-8 matching CSV's assoc_year
     assoc_title: "Third",                   // Display label for "{Your Class}" header
     firm_size_clean: "Up to 100 attorneys",
-    state: 11,
+    state: 10,
     fin_base: 165000,
     fin_bonus: 22000,
-    total_comp: 187000
+    total_comp: 187000,
+    cohort_mode: "class"
 };
 
 const YEAR_TITLES = {
@@ -23,26 +24,80 @@ const YEAR_TITLES = {
     8: "Eighth+"
 };
 
+const US_STATES = [
+    { code: 1, name: "Alabama", region: "Southeast" },
+    { code: 2, name: "Alaska", region: "West" },
+    { code: 4, name: "Arizona", region: "Southwest" },
+    { code: 5, name: "Arkansas", region: "Southeast" },
+    { code: 6, name: "California", region: "West" },
+    { code: 7, name: "Colorado", region: "West" },
+    { code: 8, name: "Connecticut", region: "Northeast" },
+    { code: 9, name: "Delaware", region: "Southeast" },
+    { code: 10, name: "District of Columbia", region: "Southeast" },
+    { code: 11, name: "Florida", region: "Southeast" },
+    { code: 12, name: "Georgia", region: "Southeast" },
+    { code: 14, name: "Hawaii", region: "West" },
+    { code: 15, name: "Idaho", region: "West" },
+    { code: 16, name: "Illinois", region: "Midwest" },
+    { code: 17, name: "Indiana", region: "Midwest" },
+    { code: 18, name: "Iowa", region: "Midwest" },
+    { code: 19, name: "Kansas", region: "Midwest" },
+    { code: 20, name: "Kentucky", region: "Southeast" },
+    { code: 21, name: "Louisiana", region: "Southeast" },
+    { code: 22, name: "Maine", region: "Northeast" },
+    { code: 23, name: "Maryland", region: "Southeast" },
+    { code: 24, name: "Massachusetts", region: "Northeast" },
+    { code: 25, name: "Michigan", region: "Midwest" },
+    { code: 26, name: "Minnesota", region: "Midwest" },
+    { code: 27, name: "Mississippi", region: "Southeast" },
+    { code: 28, name: "Missouri", region: "Midwest" },
+    { code: 29, name: "Montana", region: "West" },
+    { code: 30, name: "Nebraska", region: "Midwest" },
+    { code: 31, name: "Nevada", region: "West" },
+    { code: 32, name: "New Hampshire", region: "Northeast" },
+    { code: 33, name: "New Jersey", region: "Northeast" },
+    { code: 34, name: "New Mexico", region: "Southwest" },
+    { code: 35, name: "New York", region: "Northeast" },
+    { code: 36, name: "North Carolina", region: "Southeast" },
+    { code: 37, name: "North Dakota", region: "Midwest" },
+    { code: 39, name: "Ohio", region: "Midwest" },
+    { code: 40, name: "Oklahoma", region: "Southwest" },
+    { code: 41, name: "Oregon", region: "West" },
+    { code: 42, name: "Pennsylvania", region: "Northeast" },
+    { code: 44, name: "Rhode Island", region: "Northeast" },
+    { code: 45, name: "South Carolina", region: "Southeast" },
+    { code: 46, name: "South Dakota", region: "Midwest" },
+    { code: 47, name: "Tennessee", region: "Southeast" },
+    { code: 48, name: "Texas", region: "Southwest" },
+    { code: 50, name: "Utah", region: "West" },
+    { code: 51, name: "Vermont", region: "Northeast" },
+    { code: 52, name: "Virginia", region: "Southeast" },
+    { code: 54, name: "Washington", region: "West" },
+    { code: 55, name: "West Virginia", region: "Southeast" },
+    { code: 56, name: "Wisconsin", region: "Midwest" },
+    { code: 57, name: "Wyoming", region: "West" }
+]
+
 // The 3 stacked metric sections
 const METRICS = [
     { key: "total_comp", label: "Total Compensation" },
-    { key: "fin_base",   label: "Base Salary" },
-    { key: "fin_bonus",  label: "Bonus" }
+    { key: "fin_base", label: "Base Salary" },
+    { key: "fin_bonus", label: "Bonus" }
 ];
 
 // Row ordering: <100 -> 101-600 -> 600+ -> All sizes
 const FIRM_SIZES = [
-    { id: "small",  label: "<100",      filterValue: "Up to 100 attorneys" },
-    { id: "medium", label: "101–600",   filterValue: "101-600 attorneys" },
-    { id: "large",  label: "600+",      filterValue: "More than 600 attorneys" },
-    { id: "all",    label: "All sizes", filterValue: null }
+    { id: "small", label: "<100", filterValue: "Up to 100 attorneys" },
+    { id: "medium", label: "101–600", filterValue: "101-600 attorneys" },
+    { id: "large", label: "600+", filterValue: "More than 600 attorneys" },
+    { id: "all", label: "All sizes", filterValue: null }
 ];
 
 // Shared vertical geometry so labels and both chart columns align to the exact pixel
 const CHART_GEOM = {
-    height: 126,
-    marginTop: 18,    // Room at top for the "$187k" user pay label
-    marginBottom: 20  // Room at bottom for the X-axis ticks
+    height: 185,
+    marginTop: 14,    // Room at top for the "$187k" user pay label
+    marginBottom: 16  // Room at bottom for the X-axis ticks
 };
 
 // Cached datasets so re-renders after form submission are instant
@@ -62,11 +117,43 @@ function formatSignedK(val) {
     return rounded > 0 ? `+$${rounded}k` : `-$${Math.abs(rounded)}k`;
 }
 
+function formatCurrency(val) {
+    if (val === null || isNaN(val)) return "$0";
+    return `$${Math.round(val).toLocaleString("en-US")}`;
+}
+
+function formatPctComparison(userVal, avgVal) {
+    if (!avgVal || isNaN(avgVal) || userVal === null || isNaN(userVal)) {
+        return { text: "in line with", className: "act-hl act-hl-equal"};
+    }
+    const pct = ((userVal - avgVal) / avgVal) * 100;
+    const absPct = Math.round(Math.abs(pct));
+
+    if (absPct === 0) {
+        return { text: "roughly equal to", className: "act-hl act-hl-equal" };
+    }
+    if (pct > 0) {
+        return { text: `${absPct}% higher than`, className: "act-hl act-hl-higher" }
+    }
+    return { text: `${absPct}% lower than`, className: "act-hl act-hl-lower" };
+}
+
+function normalizeRegion(str) {
+    if (!str) return "";
+    const trimmed = str.trim();
+    if (trimmed.toLowerCase() === "none") return "";
+    // Title-case each word (e.g. "southeast" -> "Southeast")
+    return trimmed.replace(/\w\S*/g, (w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+}
+
 // ==========================================
 // 2. DATA WRANGLING & RENDER ORCHESTRATION
 // ==========================================
 
 async function initDashboard() {
+    populateStateDropdown();
+    setupInputOverlayHandlers();
+
     // Load CSV and pre-projected GeoJSON in parallel
     const [rawData, regionsGeo] = await Promise.all([
         d3.csv("unclean/data_11_12.csv", (d) => ({
@@ -78,7 +165,7 @@ async function initDashboard() {
             firm_size_clean: d.firm_size_clean ? d.firm_size_clean.trim() : "",
             state: +d.state,
             state_name: d.state_name ? d.state_name.trim() : "",
-            region: d.region ? d.region.trim() : ""
+            region: normalizeRegion(d.region)
         })),
         d3.json("regions_map.geojson")
     ]);
@@ -86,12 +173,136 @@ async function initDashboard() {
     cachedRawData = rawData;
     cachedRegionsGeo = regionsGeo;
 
-    populateStateDropdown(rawData);
-    setupInputOverlayHandlers();
     renderAllModules();
 }
 
-function renderAllModules() {
+/* = = = = = = = = = = = = = */
+/*   Blurb Typing Animation  */
+/* = = = = = = = = = = = = = */
+
+let blurbTypingTimer = null;
+
+function typeBlurbSegments(pEl, segments, speedMs = 16) {
+    if (blurbTypingTimer) {
+        clearInterval(blurbTypingTimer);
+        blurbTypingTimer = null;
+    }
+
+    pEl.innerHTML = "";
+    pEl.classList.add("is-typing");
+
+    // Create all DOM nodes up front with empty text so <strong> formatting stays intact
+    const nodes = segments.map((seg) => {
+        const el = document.createElement("span");
+        if (seg.className) {
+            el.className = seg.className;
+        }
+        pEl.appendChild(el);
+        return { el, text: seg.text };
+    });
+
+    let segIndex = 0;
+    let charIndex = 0;
+
+    blurbTypingTimer = setInterval(() => {
+        if (segIndex >= nodes.length) {
+            clearInterval(blurbTypingTimer);
+            blurbTypingTimer = null;
+            pEl.classList.remove("is-typing");
+            return;
+        }
+
+        const current = nodes[segIndex];
+        charIndex++;
+        current.el.textContent = current.text.slice(0, charIndex);
+
+        if (charIndex >= current.text.length) {
+            segIndex++;
+            charIndex = 0;
+        }
+    }, speedMs);
+}
+
+function buildSummaryBlurb(data, shouldAnimate = false) {
+    const blurbWrap = document.getElementById("act-left-blurb");
+    if (!blurbWrap) return;
+
+    // Ensure both the height-reserving ghost and live typing <p> exist
+    let ghostEl = blurbWrap.querySelector("p.act-blurb-ghost");
+    let liveEl = blurbWrap.querySelector("p.act-blurb-live");
+
+    if (!ghostEl || !liveEl) {
+        blurbWrap.innerHTML = "";
+        ghostEl = document.createElement("p");
+        ghostEl.className = "act-blurb-ghost";
+        ghostEl.setAttribute("aria-hidden", "true");
+
+        liveEl = document.createElement("p");
+        liveEl.className = "act-blurb-live";
+
+        blurbWrap.appendChild(ghostEl);
+        blurbWrap.appendChild(liveEl);
+    }
+
+    // 1. Resolve user's region from dataset or US_STATES fallback
+    const stateMatch = data.find(
+        (d) => d.state === userState.state && d.region && d.region !== "None"
+    );
+    const fallbackState = US_STATES.find((s) => s.code === userState.state);
+    const userRegion = stateMatch
+        ? stateMatch.region
+        : (fallbackState ? fallbackState.region : "your region");
+
+    // 2. Filter survey rows matching the user's associate class
+    const classRows = data.filter((d) => {
+        if (d.total_comp === null || isNaN(d.total_comp)) return false;
+        return userState.assoc_year >= 8
+            ? d.assoc_year >= 8
+            : d.assoc_year === userState.assoc_year;
+    });
+
+    // 3. Calculate national & regional averages for that class
+    const natAvg = d3.mean(classRows, (d) => d.total_comp);
+    const regRows = classRows.filter((d) => d.region === userRegion);
+    const regAvg = d3.mean(regRows, (d) => d.total_comp);
+
+    // 4. Build ordered segments preserving bold emphasis
+    const classLabel = `${userState.assoc_title.toLowerCase()}-year`;
+    const natComp = formatPctComparison(userState.total_comp, natAvg);
+    const regComp = formatPctComparison(userState.total_comp, regAvg);
+    const segments = [
+        { text: "Your total compensation of "},
+        { text: formatCurrency(userState.total_comp), className: "act-hl act-hl-user" },
+        { text: " is "},
+        { text: natComp.text, className: natComp.className },
+        { text: " the national average of "},
+        { text: formatCurrency(natAvg), className: "act-hl act-nat-avg" },
+        { text: ` for ${classLabel} associates. Within the ${userRegion}, your pay is `},
+        { text: regComp.text, className: regComp.className },
+        { text: ` other ${classLabel} associates.`}
+    ];
+
+    const fullHtml = segments
+        .map((s) => (s.className ? `<span class="${s.className}">${s.text}</span>` : s.text))
+        .join("");
+
+    // Ghost gets the full text immediately so the container locks to its exact final height
+    ghostEl.innerHTML = fullHtml;
+
+    if (shouldAnimate) {
+        typeBlurbSegments(liveEl, segments, 16);
+    } else {
+        if (blurbTypingTimer) {
+            clearInterval(blurbTypingTimer);
+            blurbTypingTimer = null;
+        }
+        liveEl.classList.remove("is-typing");
+        liveEl.innerHTML = fullHtml;
+    }
+}
+
+
+function renderAllModules({ animateBlurb = false } = {}) {
     if (!cachedRawData.length || !cachedRegionsGeo) return;
 
     // Auto-calculate [min, max] scale for each of the 3 dumbbell sections individually
@@ -111,6 +322,7 @@ function renderAllModules() {
         domainsByMetric[metric.key] = [sectionMin, sectionMax];
     });
 
+    buildSummaryBlurb(cachedRawData, animateBlurb);
     buildDashboardGrid(cachedRawData, domainsByMetric);
     buildRegionalMap(cachedRawData, cachedRegionsGeo);
     buildMultiLineChart(cachedRawData);
@@ -120,22 +332,13 @@ function renderAllModules() {
 // 3. USER INPUT OVERLAY & VALIDATION
 // ==========================================
 
-function populateStateDropdown(data) {
+function populateStateDropdown() {
     const stateSelect = document.getElementById("act-input-state");
     if (!stateSelect) return;
 
-    // Collect unique valid (state -> state_name) pairs from dataset
-    const stateMap = new Map();
-    data.forEach((d) => {
-        if (!isNaN(d.state) && d.state > 0 && d.state_name) {
-            stateMap.set(d.state, d.state_name);
-        }
-    });
+    const sortedStates = [...US_STATES].sort((a, b) => a.name.localeCompare(b.name));
 
-    const sortedStates = Array.from(stateMap.entries())
-        .sort((a, b) => a[1].localeCompare(b[1]));
-
-    sortedStates.forEach(([code, name]) => {
+    sortedStates.forEach(({ code, name }) => {
         const opt = document.createElement("option");
         opt.value = String(code);
         opt.textContent = name;
@@ -236,7 +439,7 @@ function setupInputOverlayHandlers() {
         userState.total_comp = baseVal + bonusVal;
 
         // Re-render all 3 dashboard modules and reveal them
-        renderAllModules();
+        renderAllModules({ animateBlurb: true });
         overlay.classList.add("is-hidden");
     });
 }
@@ -249,113 +452,123 @@ function buildDashboardGrid(data, domainsByMetric) {
     const root = d3.select("#act-dot-plots");
     root.html(""); // Clear existing content
 
-    // --- 3 Metric Sections inside one unified outer card ---
-    METRICS.forEach((metric, metricIndex) => {
-        const isFirstSection = metricIndex === 0;
+    // 1. Top Card Header: Headline, Description, Toggle & Legend Key
+    const cardTop = root.append("div")
+        .attr("class", "act-card-top");
 
-        const section = root.append("div")
-            .attr("class", "act-metric-group");
+    const titleRow = cardTop.append("div")
+        .attr("class", "act-card-title-row");
 
-        // Title bar with dark navy underline
-        const header = section.append("div")
-            .attr("class", "act-metric-header");
+    titleRow.append("h3")
+        .attr("class", "act-metric-title")
+        .text("Compensation Ranges by Firm Size");
 
-        header.append("h3")
-            .attr("class", "act-metric-title")
-            .text(metric.label);
+    // Segmented Toggle: [Your Class] vs [All Associates]
+    const toggleGroup = titleRow.append("div")
+        .attr("class", "act-toggle-group")
+        .attr("role", "group")
+        .attr("aria-label", "Comparison cohort");
 
-        // Render the boxed legend inline on the right of "Total Compensation" only
-        if (isFirstSection) {
-            const legendBox = header.append("div")
-                .attr("class", "act-legend-box");
+    const toggleOptions = [
+        { id: "class", label: `${userState.assoc_title}-Year` },
+        { id: "all", label: "All Associates" }
+    ];
 
-            legendBox.append("span")
-                .attr("class", "act-legend-item")
-                .html(`<span class="act-swatch-min"></span> Min`);
-
-            legendBox.append("span")
-                .attr("class", "act-legend-item")
-                .html(`<span class="act-swatch-range"></span> Pay range`);
-
-            legendBox.append("span")
-                .attr("class", "act-legend-item")
-                .html(`<span class="act-swatch-max"></span> Max`);
-
-            legendBox.append("span")
-                .attr("class", "act-legend-item")
-                .html(`<span class="act-swatch-user"></span> Your pay`);
-        }
-
-        // 3-column CSS Grid: [Firm Size] | [{Your Class}] | [All Associates]
-        const grid = section.append("div")
-            .attr("class", "act-plot-grid");
-
-        // Render column headers ONLY at the top of the first section
-        if (isFirstSection) {
-            const firmHeader = grid.append("div")
-                .attr("class", "act-col-header");
-            firmHeader.append("div").text("Firm Size");
-            firmHeader.append("div")
-                .attr("class", "act-col-subhead")
-                .text("(# attys)");
-
-            grid.append("div")
-                .attr("class", "act-col-header act-col-divider")
-                .text(`${userState.assoc_title}-Year`);
-
-            grid.append("div")
-                .attr("class", "act-col-header act-col-divider")
-                .text("All Associates");
-        }
-
-        // Shared Y-scale used across all 3 columns so text and bars align identically
-        const yScale = d3.scalePoint()
-            .domain(FIRM_SIZES.map((s) => s.label))
-            .range([CHART_GEOM.marginTop + 12, CHART_GEOM.height - CHART_GEOM.marginBottom - 10]);
-
-        // Col 1: Firm-size labels SVG
-        const labelCol = grid.append("div")
-            .attr("class", "act-svg-col");
-        drawLabelColumn(labelCol, yScale);
-
-        // Summarize min/max for each firm-size tier
-        // Note: When user selects year 8 ("8th Year+"), pool all associates with assoc_year >= 8
-        const summarizeSlice = (filterByClass) =>
-            FIRM_SIZES.map((sizeObj) => {
-                const slice = data.filter((d) => {
-                    const matchesFirm = sizeObj.filterValue === null || d.firm_size_clean === sizeObj.filterValue;
-                    const matchesYear = !filterByClass || (
-                        userState.assoc_year >= 8
-                            ? d.assoc_year >= 8
-                            : d.assoc_year === userState.assoc_year
-                    );
-                    return matchesFirm && matchesYear && d[metric.key] !== null;
-                }).map((d) => d[metric.key]);
-
-                return {
-                    label: sizeObj.label,
-                    min: slice.length ? d3.min(slice) : null,
-                    max: slice.length ? d3.max(slice) : null
-                };
+    toggleOptions.forEach((opt) => {
+        toggleGroup.append("button")
+            .attr("type", "button")
+            .attr("class", `act-toggle-btn${userState.cohort_mode === opt.id ? " is-active" : ""}`)
+            .text(opt.label)
+            .on("click", () => {
+                if (userState.cohort_mode === opt.id) return;
+                userState.cohort_mode = opt.id;
+                buildDashboardGrid(data, domainsByMetric);
             });
+    });
 
-        // Col 2: Viewer's Class dumbbell plot
-        const classCol = grid.append("div")
-            .attr("class", "act-svg-col act-col-divider");
-        drawDumbbellColumn({
-            container: classCol,
-            rows: summarizeSlice(true),
-            userValue: userState[metric.key],
-            domain: domainsByMetric[metric.key],
-            yScale
+    cardTop.append("p")
+        .attr("class", "act-card-sub")
+        .text("Min-to-max pay ranges across firm sizes compared against your reported compensation.");
+
+    const controlsRow = cardTop.append("div")
+        .attr("class", "act-card-controls");
+
+    const legendBox = controlsRow.append("div")
+        .attr("class", "act-legend-box");
+
+    legendBox.append("span")
+        .attr("class", "act-legend-item")
+        .html(`<span class="act-swatch-min"></span> Min`);
+
+    legendBox.append("span")
+        .attr("class", "act-legend-item")
+        .html(`<span class="act-swatch-range"></span> Pay range`);
+
+    legendBox.append("span")
+        .attr("class", "act-legend-item")
+        .html(`<span class="act-swatch-max"></span> Max`);
+
+    legendBox.append("span")
+        .attr("class", "act-legend-item")
+        .html(`<span class="act-swatch-user"></span> Your pay`);
+
+    // 2. 4-Column Horizontal Grid: [Firm Size] | [Total Comp] | [Base Salary] | [Bonus]
+    const grid = root.append("div")
+        .attr("class", "act-plot-grid");
+
+    // Column Headers
+    const firmHeader = grid.append("div")
+        .attr("class", "act-col-header");
+    firmHeader.append("div").text("Firm Size");
+    firmHeader.append("div")
+        .attr("class", "act-col-subhead")
+        .text("(# attys)");
+
+    METRICS.forEach((metric) => {
+        grid.append("div")
+            .attr("class", "act-col-header act-col-divider")
+            .text(metric.label);
+    });
+
+    // Shared Y-scale across labels and all 3 metric columns
+    const yScale = d3.scalePoint()
+        .domain(FIRM_SIZES.map((s) => s.label))
+        .range([CHART_GEOM.marginTop + 16, CHART_GEOM.height - CHART_GEOM.marginBottom - 14]);
+
+    // Col 1: Firm-size labels SVG
+    const labelCol = grid.append("div")
+        .attr("class", "act-svg-col");
+    drawLabelColumn(labelCol, yScale);
+
+    // Helper to summarize min/max per firm size based on active toggle mode
+    const filterByClass = userState.cohort_mode === "class";
+    const summarizeMetric = (metricKey) =>
+        FIRM_SIZES.map((sizeObj) => {
+            const slice = data.filter((d) => {
+                const matchesFirm = sizeObj.filterValue === null || d.firm_size_clean === sizeObj.filterValue;
+                const matchesYear = !filterByClass || (
+                    userState.assoc_year >= 8
+                        ? d.assoc_year >= 8
+                        : d.assoc_year === userState.assoc_year
+                );
+                return matchesFirm && matchesYear && d[metricKey] !== null;
+            }).map((d) => d[metricKey]);
+
+            return {
+                label: sizeObj.label,
+                min: slice.length ? d3.min(slice) : null,
+                max: slice.length ? d3.max(slice) : null
+            };
         });
 
-        // Col 3: All Associates dumbbell plot
-        const allCol = grid.append("div")
+    // Cols 2, 3, 4: One dumbbell column per metric
+    METRICS.forEach((metric) => {
+        const metricCol = grid.append("div")
             .attr("class", "act-svg-col act-col-divider");
+
         drawDumbbellColumn({
-            container: allCol,
-            rows: summarizeSlice(false),
+            container: metricCol,
+            rows: summarizeMetric(metric.key),
             userValue: userState[metric.key],
             domain: domainsByMetric[metric.key],
             yScale
@@ -364,7 +577,7 @@ function buildDashboardGrid(data, domainsByMetric) {
 }
 
 function drawLabelColumn(container, yScale) {
-    const width = 54;
+    const width = 52;
     const svg = container.append("svg")
         .attr("viewBox", `0 0 ${width} ${CHART_GEOM.height}`)
         .attr("preserveAspectRatio", "xMinYMid meet");
@@ -380,8 +593,8 @@ function drawLabelColumn(container, yScale) {
 }
 
 function drawDumbbellColumn({ container, rows, userValue, domain, yScale }) {
-    const width = 125;
-    const margin = { left: 6, right: 6 };
+    const width = 135;
+    const margin = { left: 8, right: 8 };
     const axisY = CHART_GEOM.height - CHART_GEOM.marginBottom;
 
     const xScale = d3.scaleLinear()
@@ -403,8 +616,8 @@ function drawDumbbellColumn({ container, rows, userValue, domain, yScale }) {
     });
 
     // 2. Dumbbell bars (rounded gray range bar + white-outlined min & max dots)
-    const barHeight = 6;
-    const dotRadius = 3.2;
+    const barHeight = 7;
+    const dotRadius = 3.8;
 
     rows.forEach((row) => {
         if (row.min === null || row.max === null) return;
@@ -437,7 +650,7 @@ function drawDumbbellColumn({ container, rows, userValue, domain, yScale }) {
     // 3. Continuous vertical benchmark line + dollar callout above top row
     if (userValue !== null && !isNaN(userValue)) {
         const ux = xScale(userValue);
-        const lineTopY = CHART_GEOM.marginTop - 3;
+        const lineTopY = CHART_GEOM.marginTop;
 
         svg.append("line")
             .attr("class", "act-user-line")
@@ -488,18 +701,23 @@ function buildRegionalMap(data, geojson) {
     const root = d3.select("#act-map");
     root.html(""); // Clear existing content
 
-    // 1. Header matching the left column's .act-metric-header style
+    // 1. Header reflecting the user's associate class
     const header = root.append("div")
         .attr("class", "act-metric-header");
 
     header.append("h3")
         .attr("class", "act-metric-title")
-        .text("Regional Total Comp vs. You");
+        .text(`${userState.assoc_title}-Year Regional Total Comp vs. You`);
 
-    // 2. Aggregate average total_comp per region across all associates (excluding "None")
+    // 2. Aggregate average total_comp per region for the user's associate class
     const regionStats = new Map();
     const grouped = d3.group(
-        data.filter((d) => d.region && d.region !== "None" && d.total_comp !== null),
+        data.filter((d) => {
+            if (!d.region || d.region === "None" || d.total_comp === null) return false;
+            return userState.assoc_year >= 8
+                ? d.assoc_year >= 8
+                : d.assoc_year === userState.assoc_year;
+        }),
         (d) => d.region
     );
 
@@ -639,7 +857,8 @@ function buildMultiLineChart(data) {
 
     // 1. Determine user's active region matched via userState.state
     const stateMatch = data.find((d) => d.state === userState.state && d.region && d.region !== "None");
-    const activeRegion = stateMatch ? stateMatch.region : null;
+    const fallbackState = US_STATES.find((s) => s.code === userState.state);
+    const activeRegion = stateMatch ? stateMatch.region : (fallbackState ? fallbackState.region : null);
 
     // 2. Header matching the rest of the dashboard
     const header = root.append("div")

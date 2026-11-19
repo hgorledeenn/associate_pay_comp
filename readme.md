@@ -1,5 +1,13 @@
 ## Associate Comp Tool Data Diary
 
+
+### To do:
+- Update state dropdown list so it's pulling from a list of states, not the data's list of states
+    - Remove PR from state dropdown list
+    - Make sure states without data are in the list (AK & NM)
+
+- Fix the "Update your info" button so it doesn't auto-populate data; it should just load an empty form
+
 <hr>
 
 ### Map stuff
