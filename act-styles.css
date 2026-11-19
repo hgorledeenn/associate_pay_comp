@@ -2,7 +2,7 @@
     background-color: #ffffff;
     border: 1px solid #000000;
     font-family: 'LatoWeb', Arial, Helvetica, sans-serif;
-    max-width: 1190px;
+    max-width: 1190px !important;
     margin: 0 auto 20px auto;
     box-sizing: border-box;
     padding: 20px 20px 10px 20px;
