@@ -85,19 +85,19 @@ const METRICS = [
     { key: "fin_bonus", label: "Bonus" }
 ];
 
-// Row ordering: <100 -> 101-600 -> 600+ -> All sizes
+// Row ordering: <101 -> 101-600 -> 600+ -> All sizes
 const FIRM_SIZES = [
-    { id: "small", label: "<100", filterValue: "Up to 100 attorneys" },
-    { id: "medium", label: "101–600", filterValue: "101-600 attorneys" },
+    { id: "small", label: "<101", filterValue: "Up to 100 attorneys" },
+    { id: "medium", label: "101-600", filterValue: "101-600 attorneys" },
     { id: "large", label: "600+", filterValue: "More than 600 attorneys" },
     { id: "all", label: "All sizes", filterValue: null }
 ];
 
 // Shared vertical geometry so labels and both chart columns align to the exact pixel
 const CHART_GEOM = {
-    height: 185,
-    marginTop: 14,    // Room at top for the "$187k" user pay label
-    marginBottom: 16  // Room at bottom for the X-axis ticks
+    height: 245,
+    marginTop: 16,    // Room at top for the "$187k" user pay label
+    marginBottom: 18  // Room at bottom for the X-axis ticks
 };
 
 // Cached datasets so re-renders after form submission are instant
@@ -597,8 +597,8 @@ function buildDashboardGrid(data, domainsByMetric) {
     // Helper to summarize min/median/max per firm size based on active toggle mode
     const filterByClass = userState.cohort_mode === "class";
     const tooltipShortNames = {
-        small: "Small (<100)",
-        medium: "Medium (101–600)",
+        small: "Small (<101)",
+        medium: "Medium (101-600)",
         large: "Large (600+)",
         all: "All"
     };
@@ -645,30 +645,39 @@ function buildDashboardGrid(data, domainsByMetric) {
 }
 
 function drawLabelColumn(container, yScale, highlightHeight) {
-    const width = 52;
-    const svg = container.append("svg")
-        .attr("viewBox", `0 0 ${width} ${CHART_GEOM.height}`)
-        .attr("preserveAspectRatio", "xMinYMid meet");
+    const wrap = container.append("div")
+        .style("position", "relative")
+        .style("width", "100%")
+        .style("height", "100%");
+
+    const heightPct = (highlightHeight / CHART_GEOM.height) * 100;
 
     FIRM_SIZES.forEach((sizeObj) => {
         const y = yScale(sizeObj.label);
+        const topPct = (y / CHART_GEOM.height) * 100;
+        const isUserFirm = sizeObj.filterValue === userState.firm_size_clean;
 
-        if (sizeObj.filterValue === userState.firm_size_clean) {
-            svg.append("rect")
-                .attr("class", "act-row-highlight")
-                .attr("x", -4)
-                .attr("y", y - highlightHeight / 2)
-                .attr("width", width + 8)
-                .attr("height", highlightHeight)
+        if (isUserFirm) {
+            wrap.append("div")
+                .style("position", "absolute")
+                .style("left", "-4px")
+                .style("right", "-4px")
+                .style("top", `${topPct}%`)
+                .style("height", `${heightPct}%`)
+                .style("transform", "translateY(-50%)")
+                .style("background-color", "#1B736525");
         }
 
-        svg.append("text")
-            .attr("class", "act-row-text")
-            .attr("x", width / 2)
-            .attr("y", y)
-            .attr("dy", "0.35em")
-            .attr("text-anchor", "middle")
-            .style("font-weight", sizeObj.filterValue === userState.firm_size_clean ? "700" : "600")
+        wrap.append("div")
+            .style("position", "absolute")
+            .style("left", "0")
+            .style("right", "0")
+            .style("top", `${topPct}%`)
+            .style("transform", "translateY(-50%)")
+            .style("text-align", "center")
+            .style("font-size", "10px")
+            .style("font-weight", isUserFirm ? "700" : "600")
+            .style("color", "#374151")
             .text(sizeObj.label);
     });
 }
@@ -861,7 +870,7 @@ function buildRegionalMap(data, geojson) {
 
     cardTop.append("h3")
         .attr("class", "act-metric-title")
-        .text(`${userState.assoc_title}-Year Regional Total Comp vs. You`);
+        .text(`${userState.assoc_title}-Year Regional Total Compensation vs. You`);
 
     cardTop.append("p")
         .attr("class", "act-card-sub")
@@ -1058,7 +1067,19 @@ function buildMultiLineChart(data) {
     const fallbackState = US_STATES.find((s) => s.code === userState.state);
     const activeRegion = stateMatch ? stateMatch.region : (fallbackState ? fallbackState.region : null);
 
-    // 2. Two-column split: [Left: Hed + Legend + Line Chart] | [Right: Year Breakdown Readout]
+    // 2. Full-width Card Header: Hed + Dek + Navy Bottom Divider (matches other cards)
+    const cardTop = root.append("div")
+        .attr("class", "act-card-top");
+
+    cardTop.append("h3")
+        .attr("class", "act-metric-title")
+        .text("Total Compensation by Class and Region");
+
+    cardTop.append("p")
+        .attr("class", "act-card-sub")
+        .text("See how average regional pay rates differ across associate class years.");
+
+    // 3. Two-column split below the divider: [Left: Legend + Line Chart] | [Right: Year Breakdown Readout]
     const split = root.append("div")
         .attr("class", "act-line-split");
 
@@ -1068,11 +1089,7 @@ function buildMultiLineChart(data) {
     const readoutCol = split.append("div")
         .attr("class", "act-line-readout");
 
-    mainCol.append("h3")
-        .attr("class", "act-metric-title")
-        .text("Total Comp by Class & Region");
-
-    // 3. Compact inline legend
+    // 4. Compact inline legend inside mainCol
     const legend = mainCol.append("div")
         .attr("class", "act-line-legend");
 
@@ -1290,7 +1307,7 @@ function buildMultiLineChart(data) {
         .attr("fill", "transparent")
         .on("mousemove", function (event) {
             const [mx] = d3.pointer(event, this);
-            const hoveredYr = xScale.invert(mx + margin.left);
+            const hoveredYr = xScale.invert(mx);
             setFocusedYear(hoveredYr);
         })
         .on("mouseleave", () => {
