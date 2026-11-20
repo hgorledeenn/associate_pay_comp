@@ -154,26 +154,34 @@ async function initDashboard() {
     populateStateDropdown();
     setupInputOverlayHandlers();
 
-    // Load CSV and pre-projected GeoJSON in parallel
-    const [rawData, regionsGeo] = await Promise.all([
-        d3.csv("unclean/data_11_12.csv", (d) => ({
-            assoc_year: +d.assoc_year,
-            assoc_title: d.assoc_title,
-            fin_base: d.fin_base !== "" ? +d.fin_base : null,
-            fin_bonus: d.fin_bonus !== "" ? +d.fin_bonus : null,
-            total_comp: d.total_comp !== "" ? +d.total_comp : null,
-            firm_size_clean: d.firm_size_clean ? d.firm_size_clean.trim() : "",
-            state: +d.state,
-            state_name: d.state_name ? d.state_name.trim() : "",
-            region: normalizeRegion(d.region)
-        })),
-        d3.json("regions_map.geojson")
-    ]);
+    try {
+        const [rawData, regionsGeo] = await Promise.all([
+            d3.csv("https://assets.law360news.com/2550000/2550823/data_11_12.csv", (d) => ({
+                assoc_year: +d.assoc_year,
+                assoc_title: d.assoc_title,
+                fin_base: d.fin_base !== "" ? +d.fin_base : null,
+                fin_bonus: d.fin_bonus !== "" ? +d.fin_bonus : null,
+                total_comp: d.total_comp !== "" ? +d.total_comp : null,
+                firm_size_clean: d.firm_size_clean ? d.firm_size_clean.trim() : "",
+                state: +d.state,
+                state_name: d.state_name ? d.state_name.trim() : "",
+                region: normalizeRegion(d.region)
+            })),
+            d3.json("https://assets.law360news.com/2550000/2550823/regions_map.geojson")
+        ]);
 
-    cachedRawData = rawData;
-    cachedRegionsGeo = regionsGeo;
+        cachedRawData = rawData;
+        cachedRegionsGeo = regionsGeo;
+        renderAllModules();
+    } catch (err) {
+        console.error("ACT Dashboard data load failed:", err);
+    }
+}
 
-    renderAllModules();
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initDashboard);
+} else {
+    initDashboard();
 }
 
 /* = = = = = = = = = = = = = */

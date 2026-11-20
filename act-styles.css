@@ -87,7 +87,6 @@
 /* Base inline highlight badge */
 #act-left-blurb .act-hl {
     display: inline;
-    /* font-weight: 700; */
     border-radius: 0px;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
@@ -95,8 +94,6 @@
 
 /* User's own dollar value highlight */
 #act-left-blurb .act-hl-user {
-    /* background-color: #0b2a44;
-    color: #ffffff !important; */
     text-decoration: underline;
     font-size: 22px;
 }
@@ -106,47 +103,22 @@
     background-color: #364559;
     color: #ffffff !important;
     padding: 2px 5px;
-    /* border: 1px solid #bfd1e0; */
 }
 
 #act-left-blurb .act-hl-lower {
     background-color: #D66853;
     color: #ffffff !important;
     padding: 2px 5px;
-    /* border: 1px solid #f2c4ba; */
 }
 
 #act-left-blurb .act-hl-equal {
     background-color: #f1f5f9;
     color: #374151 !important;
     padding: 2px 5px;
-    /* border: 1px solid #cbd5e1; */
 }
 
 #act-left-blurb .act-nat-avg {
     text-decoration: underline;
-}
-
-/* Dark-mode / #article-body specificity overrides so text colors stay crisp */
-html body.dark-mode .act-section-wrap #act-left-blurb .act-hl-user,
-html body.tw-dark .act-section-wrap #act-left-blurb .act-hl-user,
-html body.dark .act-section-wrap #act-left-blurb .act-hl-user,
-#article-body .act-section-wrap #act-left-blurb .act-hl-user {
-    color: #ffffff !important;
-}
-
-html body.dark-mode .act-section-wrap #act-left-blurb .act-hl-higher,
-html body.tw-dark .act-section-wrap #act-left-blurb .act-hl-higher,
-html body.dark .act-section-wrap #act-left-blurb .act-hl-higher,
-#article-body .act-section-wrap #act-left-blurb .act-hl-higher {
-    color: #0b2a44 !important;
-}
-
-html body.dark-mode .act-section-wrap #act-left-blurb .act-hl-lower,
-html body.tw-dark .act-section-wrap #act-left-blurb .act-hl-lower,
-html body.dark .act-section-wrap #act-left-blurb .act-hl-lower,
-#article-body .act-section-wrap #act-left-blurb .act-hl-lower {
-    color: #a63f2b !important;
 }
 
 #act-left-blurb-highlight {
@@ -224,13 +196,20 @@ html body.dark .act-section-wrap #act-left-blurb .act-hl-lower,
 }
 
 .act-metric-title {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
     font-size: 16px;
     font-weight: 700;
     color: #0b2a44;
     margin: 0;
+    line-height: 1.25;
 }
 
 .act-card-sub {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
     font-size: 12.5px;
     color: #4b5563;
     margin: 0;
@@ -281,6 +260,7 @@ html body.dark .act-section-wrap #act-left-blurb .act-hl-lower,
     font-weight: 700;
     font-family: 'LatoWeb', Arial, Helvetica, sans-serif;
     cursor: pointer;
+    white-space: nowrap;
     transition: background-color 0.15s ease, color 0.15s ease;
 }
 
@@ -291,14 +271,6 @@ html body.dark .act-section-wrap #act-left-blurb .act-hl-lower,
 .act-toggle-btn.is-active {
     background-color: #0b2a44;
     color: #ffffff;
-}
-
-/* Keep active toggle text white in dark mode */
-html body.dark-mode .act-section-wrap .act-toggle-btn.is-active,
-html body.tw-dark .act-section-wrap .act-toggle-btn.is-active,
-html body.dark .act-section-wrap .act-toggle-btn.is-active,
-#article-body .act-section-wrap .act-toggle-btn.is-active {
-    color: #ffffff !important;
 }
 
 .act-legend-box {
@@ -471,7 +443,6 @@ html body.dark .act-section-wrap .act-toggle-btn.is-active,
         display: none !important;
     }
 
-    /* Split left column roughly 1/3 blurb (top) and 2/3 barbell card (bottom) */
     #act-left-blurb {
         flex: 0 0 auto;
     }
@@ -498,7 +469,7 @@ html body.dark .act-section-wrap .act-toggle-btn.is-active,
         margin-bottom: 12px;
     }
 
-    #act-map {
+    #act-multi-line {
         margin-bottom: 12px;
     }
 }
@@ -733,13 +704,6 @@ html body.dark .act-section-wrap .act-toggle-btn.is-active,
     gap: 5px;
 }
 
-.act-map-svg-wrap svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-height: 135px;
-}
-
 .act-readout-item {
     display: flex;
     flex-direction: column;
@@ -883,7 +847,7 @@ html body.dark .act-section-wrap .act-toggle-btn.is-active,
     display: block;
     width: 100%;
     height: auto;
-    max-height: 100%;
+    max-height: 135px;
 }
 
 .act-region-path {
@@ -922,9 +886,6 @@ html body.dark .act-section-wrap .act-toggle-btn.is-active,
     margin-top: 2px;
 }
 
-
-
-
 /* = = = = = = = = = = = */
 /* User Input Overlay    */
 /* = = = = = = = = = = = */
@@ -953,7 +914,6 @@ html body.dark .act-section-wrap .act-toggle-btn.is-active,
 
 .act-input-card {
     background-color: #ffffff;
-    /* border: 1px solid #d4d6da; */
     border-top: 3px solid #0b2a44;
     border-radius: 0px;
     padding: 18px 20px;
@@ -1087,14 +1047,6 @@ html body.dark .act-section-wrap .act-toggle-btn.is-active,
     background-color: #163d5e;
 }
 
-/* Ensure dark-mode override doesn't turn the dark-navy submit button text dark */
-html body.dark-mode .act-section-wrap .act-submit-btn,
-html body.tw-dark .act-section-wrap .act-submit-btn,
-html body.dark .act-section-wrap .act-submit-btn,
-#article-body .act-section-wrap .act-submit-btn {
-    color: #ffffff !important;
-}
-
 @media (max-width: 540px) {
     .act-form-grid {
         grid-template-columns: 1fr;
@@ -1105,19 +1057,196 @@ html body.dark .act-section-wrap .act-submit-btn,
     }
 }
 
-
-
-/* = = = = = = */
-/*  DARK MODE  */
-/* = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = */
+/* LOCK LIGHT-MODE PALETTE IN DARK MODE  */
+/* = = = = = = = = = = = = = = = = = = = */
 
 html body.dark-mode .act-section-wrap,
-html body.dark-mode .act-section-wrap *,
 html body.tw-dark .act-section-wrap,
-html body.tw-dark .act-section-wrap *,
 html body.dark .act-section-wrap,
+#article-body .act-section-wrap {
+    background-color: #ffffff !important;
+    border-color: #000000 !important;
+    color: #373739 !important;
+}
+
+html body.dark-mode .act-section-wrap *,
+html body.tw-dark .act-section-wrap *,
 html body.dark .act-section-wrap *,
-#article-body .act-section-wrap,
 #article-body .act-section-wrap * {
     color: #373739 !important;
+}
+
+/* Top "Update your info" button */
+html body.dark-mode .act-section-wrap #act-reset-button,
+html body.tw-dark .act-section-wrap #act-reset-button,
+html body.dark .act-section-wrap #act-reset-button,
+#article-body .act-section-wrap #act-reset-button {
+    background-color: #ffffff !important;
+    border: 1px solid #cccccc !important;
+    color: #333333 !important;
+}
+
+html body.dark-mode .act-section-wrap #act-reset-button:hover,
+html body.tw-dark .act-section-wrap #act-reset-button:hover,
+html body.dark .act-section-wrap #act-reset-button:hover,
+#article-body .act-section-wrap #act-reset-button:hover {
+    background-color: #f3f4f6 !important;
+    color: #111827 !important;
+}
+
+/* Summary Blurb text & inline highlight badges */
+html body.dark-mode .act-section-wrap #act-left-blurb p,
+html body.tw-dark .act-section-wrap #act-left-blurb p,
+html body.dark .act-section-wrap #act-left-blurb p,
+#article-body .act-section-wrap #act-left-blurb p,
+html body.dark-mode .act-section-wrap #act-left-blurb .act-hl-user,
+html body.tw-dark .act-section-wrap #act-left-blurb .act-hl-user,
+html body.dark .act-section-wrap #act-left-blurb .act-hl-user,
+#article-body .act-section-wrap #act-left-blurb .act-hl-user,
+html body.dark-mode .act-section-wrap #act-left-blurb .act-nat-avg,
+html body.tw-dark .act-section-wrap #act-left-blurb .act-nat-avg,
+html body.dark .act-section-wrap #act-left-blurb .act-nat-avg,
+#article-body .act-section-wrap #act-left-blurb .act-nat-avg {
+    color: #0b2a44 !important;
+}
+
+html body.dark-mode .act-section-wrap #act-left-blurb .act-hl-higher,
+html body.tw-dark .act-section-wrap #act-left-blurb .act-hl-higher,
+html body.dark .act-section-wrap #act-left-blurb .act-hl-higher,
+#article-body .act-section-wrap #act-left-blurb .act-hl-higher {
+    background-color: #364559 !important;
+    color: #ffffff !important;
+}
+
+html body.dark-mode .act-section-wrap #act-left-blurb .act-hl-lower,
+html body.tw-dark .act-section-wrap #act-left-blurb .act-hl-lower,
+html body.dark .act-section-wrap #act-left-blurb .act-hl-lower,
+#article-body .act-section-wrap #act-left-blurb .act-hl-lower {
+    background-color: #D66853 !important;
+    color: #ffffff !important;
+}
+
+html body.dark-mode .act-section-wrap #act-left-blurb .act-hl-equal,
+html body.tw-dark .act-section-wrap #act-left-blurb .act-hl-equal,
+html body.dark .act-section-wrap #act-left-blurb .act-hl-equal,
+#article-body .act-section-wrap #act-left-blurb .act-hl-equal {
+    background-color: #f1f5f9 !important;
+    color: #374151 !important;
+}
+
+/* Card titles & subtitles */
+html body.dark-mode .act-section-wrap .act-metric-title,
+html body.tw-dark .act-section-wrap .act-metric-title,
+html body.dark .act-section-wrap .act-metric-title,
+#article-body .act-section-wrap .act-metric-title {
+    color: #0b2a44 !important;
+}
+
+html body.dark-mode .act-section-wrap .act-card-sub,
+html body.tw-dark .act-section-wrap .act-card-sub,
+html body.dark .act-section-wrap .act-card-sub,
+#article-body .act-section-wrap .act-card-sub {
+    color: #4b5563 !important;
+}
+
+/* Segmented Toggle Buttons */
+html body.dark-mode .act-section-wrap .act-toggle-btn,
+html body.tw-dark .act-section-wrap .act-toggle-btn,
+html body.dark .act-section-wrap .act-toggle-btn,
+#article-body .act-section-wrap .act-toggle-btn {
+    background-color: #ffffff !important;
+    color: #0b2a44 !important;
+}
+
+html body.dark-mode .act-section-wrap .act-toggle-btn.is-active,
+html body.tw-dark .act-section-wrap .act-toggle-btn.is-active,
+html body.dark .act-section-wrap .act-toggle-btn.is-active,
+#article-body .act-section-wrap .act-toggle-btn.is-active {
+    background-color: #0b2a44 !important;
+    color: #ffffff !important;
+}
+
+/* Map Info Panel Badges */
+html body.dark-mode .act-section-wrap .act-map-info-region,
+html body.tw-dark .act-section-wrap .act-map-info-region,
+html body.dark .act-section-wrap .act-map-info-region,
+#article-body .act-section-wrap .act-map-info-region,
+html body.dark-mode .act-section-wrap .act-map-info-stat strong,
+html body.tw-dark .act-section-wrap .act-map-info-stat strong,
+html body.dark .act-section-wrap .act-map-info-stat strong,
+#article-body .act-section-wrap .act-map-info-stat strong {
+    color: #0b2a44 !important;
+}
+
+html body.dark-mode .act-section-wrap .act-map-info-diff.is-higher,
+html body.tw-dark .act-section-wrap .act-map-info-diff.is-higher,
+html body.dark .act-section-wrap .act-map-info-diff.is-higher,
+#article-body .act-section-wrap .act-map-info-diff.is-higher {
+    background-color: #364559 !important;
+    color: #ffffff !important;
+}
+
+html body.dark-mode .act-section-wrap .act-map-info-diff.is-lower,
+html body.tw-dark .act-section-wrap .act-map-info-diff.is-lower,
+html body.dark .act-section-wrap .act-map-info-diff.is-lower,
+#article-body .act-section-wrap .act-map-info-diff.is-lower {
+    background-color: #D66853 !important;
+    color: #ffffff !important;
+}
+
+/* Line Chart Sidebar Active Region Highlight */
+html body.dark-mode .act-section-wrap .act-readout-item.is-active .act-readout-region,
+html body.tw-dark .act-section-wrap .act-readout-item.is-active .act-readout-region,
+html body.dark .act-section-wrap .act-readout-item.is-active .act-readout-region,
+#article-body .act-section-wrap .act-readout-item.is-active .act-readout-region,
+html body.dark-mode .act-section-wrap .act-readout-item.is-active .act-readout-val,
+html body.tw-dark .act-section-wrap .act-readout-item.is-active .act-readout-val,
+html body.dark .act-section-wrap .act-readout-item.is-active .act-readout-val,
+#article-body .act-section-wrap .act-readout-item.is-active .act-readout-val {
+    color: #D66853 !important;
+}
+
+/* Input Overlay Form Controls & Submit Button */
+html body.dark-mode .act-section-wrap .act-input-overlay,
+html body.tw-dark .act-section-wrap .act-input-overlay,
+html body.dark .act-section-wrap .act-input-overlay,
+#article-body .act-section-wrap .act-input-overlay {
+    background-color: #e5e7eb !important;
+}
+
+html body.dark-mode .act-section-wrap .act-input-card,
+html body.tw-dark .act-section-wrap .act-input-card,
+html body.dark .act-section-wrap .act-input-card,
+#article-body .act-section-wrap .act-input-card,
+html body.dark-mode .act-section-wrap .act-form-group input,
+html body.tw-dark .act-section-wrap .act-form-group input,
+html body.dark .act-section-wrap .act-form-group input,
+#article-body .act-section-wrap .act-form-group input,
+html body.dark-mode .act-section-wrap .act-form-group select,
+html body.tw-dark .act-section-wrap .act-form-group select,
+html body.dark .act-section-wrap .act-form-group select,
+#article-body .act-section-wrap .act-form-group select {
+    background-color: #ffffff !important;
+    color: #1f2937 !important;
+}
+
+html body.dark-mode .act-section-wrap .act-submit-btn,
+html body.tw-dark .act-section-wrap .act-submit-btn,
+html body.dark .act-section-wrap .act-submit-btn,
+#article-body .act-section-wrap .act-submit-btn {
+    background-color: #0b2a44 !important;
+    color: #ffffff !important;
+}
+
+/* Footer muted text */
+html body.dark-mode .act-section-wrap .act-footer,
+html body.dark-mode .act-section-wrap .act-footer *,
+html body.tw-dark .act-section-wrap .act-footer,
+html body.tw-dark .act-section-wrap .act-footer *,
+html body.dark .act-section-wrap .act-footer,
+html body.dark .act-section-wrap .act-footer *,
+#article-body .act-section-wrap .act-footer,
+#article-body .act-section-wrap .act-footer * {
+    color: #6b7280 !important;
 }
